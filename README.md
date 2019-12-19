@@ -1,6 +1,6 @@
 # 前端代码规范
 
-本文档定义了 HTML、CSS、JavaScript 以及 Vue 的编写格式和风格规则。旨在促进协作编程、提高代码质量并使其支持基础架构。
+本文档定义了 HTML、CSS、JavaScript 以及 Vue 的编写格式和代码规范。旨在促进协作编程、提高代码质量并提供相应的编辑器配置和构建检查工具。
 
 ## 目录
 
@@ -244,3 +244,4 @@ HTML 属性应当按照以下给出的顺序依次排列，确保代码的易读
 - [Code Guide by @mdo](https://codeguide.co/)
 - [Code Guide by @AlloyTeam](http://alloyteam.github.io/CodeGuide)
 - [Popular Coding Convention on Github](http://sideeffect.kr/popularconvention#javascript)
+- [JavaScript Standard Style](https://standardjs.com/)
