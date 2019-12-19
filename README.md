@@ -32,6 +32,18 @@
     - [实用为王](#%e5%ae%9e%e7%94%a8%e4%b8%ba%e7%8e%8b)
 - [CSS](#css)
     - [缩进](#%e7%bc%a9%e8%bf%9b)
+    - [分号](#%e5%88%86%e5%8f%b7)
+    - [空格](#%e7%a9%ba%e6%a0%bc)
+    - [换行](#%e6%8d%a2%e8%a1%8c)
+    - [注释](#%e6%b3%a8%e9%87%8a)
+    - [引号](#%e5%bc%95%e5%8f%b7)
+    - [命名](#%e5%91%bd%e5%90%8d)
+    - [颜色](#%e9%a2%9c%e8%89%b2)
+    - [属性简写](#%e5%b1%9e%e6%80%a7%e7%ae%80%e5%86%99)
+    - [属性声明顺序](#%e5%b1%9e%e6%80%a7%e5%a3%b0%e6%98%8e%e9%a1%ba%e5%ba%8f)
+    - [带前缀的属性](#%e5%b8%a6%e5%89%8d%e7%bc%80%e7%9a%84%e5%b1%9e%e6%80%a7)
+    - [清除浮动](#%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8)
+    - [Less 和 Sass 中的嵌套](#less-%e5%92%8c-sass-%e4%b8%ad%e7%9a%84%e5%b5%8c%e5%a5%97)
 - [参考](#%e5%8f%82%e8%80%83)
 
 ## 项目规范
@@ -244,6 +256,679 @@ IE 支持通过特定的 `<meta>` 标签来确定绘制当前页面所应该采�
     border-radius: 10px;
     width: 50px;
     height: 50px;
+}
+```
+
+### 分号
+
+🚨每个属性声明末尾都要加分号。「.sass」文件除外。
+
+```css
+.element {
+    width: 20px;
+    height: 20px;
+
+    background-color: red;
+}
+```
+
+### 空格
+
+🚨以下几种情况不需要空格：
+
+- 属性名后
+- 多个规则的分隔符「`,`」前
+- `!important` 「`!`」后
+- 属性值中「`(`」后和「`)`」前
+- 行末不要有多余的空格
+
+🚨以下几种情况需要空格：
+
+- 每条声明语句的「`:`」后
+- 选择器「`>`」、「`+`」、「`~`」前后
+- 在每个声明块的左花括号前，「`{`」前
+- `!important`「`!`」前
+- 属性值中的「`,`」后
+- 注释「`\*`」后和「`*/`」前
+
+```css
+/* bad */
+.element {
+    color :red! important;
+    background-color: rgba(0,0,0,.5);
+}
+
+/* good */
+.element {
+    color: red !important;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+/* bad */
+.element ,
+.dialog{
+    ...
+}
+
+/* good */
+.element,
+.dialog {
+    ...
+}
+
+/* bad */
+.element>.dialog{
+    ...
+}
+
+/* good */
+.element > .dialog {
+    ...
+}
+
+/* bad */
+.element{
+    ...
+}
+
+/* good */
+.element {
+    ...
+}
+
+/* bad */
+@media screen and ( max-width: 300px ){
+    body {
+        background-color:lightblue;
+    }
+}
+
+/* good */
+@media screen and (max-width: 300px) {
+    body {
+        background-color: lightblue;
+    }
+}
+```
+
+### 换行
+
+🚨以下几种情况不需要换行：
+
+- '{'前
+
+🚨以下几种情况需要换行：
+
+- '{'后和'}'前
+- 每个属性独占一行
+- 多个规则的分隔符','后
+
+```css
+/* bad */
+.selector, .selector-secondary, .selector[type=text]{
+    padding:15px;
+    margin:0px 0px 15px;
+    background-color:rgba(0, 0, 0, 0.5);
+    box-shadow:0px 1px 2px #CCC,inset 0 1px 0 #FFFFFF
+}
+
+/* good */
+.selector,
+.selector-secondary,
+.selector[type="text"] {
+    margin-bottom: 15px;
+    padding: 15px;
+
+    background-color: rgba(0, 0, 0, .5);
+
+    box-shadow: 0 1px 2px #ccc, inset 0 1px 0 #fff;
+}
+```
+
+### 注释
+
+💡请确保你的代码能够自描述、注释良好并且易于他人理解。好的代码注释能够传达上下文关系和代码目的。不要简单地重申组件或 class 名称。
+
+对于较长的注释，务必书写完整的句子；对于一般性注解，可以书写简洁的短语。
+
+```css
+/* bad */
+/* Modal header */
+.modal-header {
+    ...
+}
+
+/* good example */
+/* Wrapping element for .modal-title and .modal-close */
+.modal-header {
+    ...
+}
+```
+
+### 引号
+
+🚨最外层统一使用双引号；
+
+🚨url的内容要用引号；
+
+🚨属性选择器中的属性值需要引号。
+
+```css
+.element:after {
+    content: "";
+
+    background-image: url("logo.png");
+}
+
+
+li[data-type="single"] {
+    ...
+}
+```
+
+### 命名
+
+🚨按照 [bem](http://getbem.com/introduction/) 的规则命名
+
+```css
+.template-card{
+    ...
+}
+
+.template-card__image{
+    ...
+}
+
+.template-card__image—active{
+    ...
+}
+```
+
+### 颜色
+
+🚨颜色16进制用小写字母；
+
+🚨颜色16进制尽量用全写；
+
+```css
+/* bad */
+.element {
+    color: #ABCDEF;
+    background-color: #001122;
+}
+
+/* good */
+.element {
+    color: #abcdef;
+    background-color: #012;
+}
+```
+
+### 属性简写
+
+📌在需要显示地设置所有值的情况下，应当尽量限制使用简写形式的属性声明。
+
+常被滥用的简写属性如下：
+
+- padding
+- margin
+- font
+- background
+- border
+- border-radius
+
+大部分情况下，我们不需要为简写形式的属性声明指定所有值。例如，HTML 的标题元素只需要设置上、下边距（`margin`）的值，因此，在必要的时候，只需覆盖这两个值就可以了。`0` 值表示对浏览器默认值或以前指定的值的覆盖。
+
+过度的使用属性简写会导致代码出现不必要的覆盖和意外的副作用。
+
+在 MDN 上有一篇关于 [shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties) 的写得非常好的文章，对于不太熟悉简写属性声明及其行为的同学可以看看。
+
+```css
+/* bad */
+.element {
+    margin: 0 0 10px;
+    background: red;
+    background: url("image.jpg");
+    border-radius: 3px 3px 0 0;
+}
+
+/* good */
+.element {
+    margin-bottom: 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    background-color: red;
+    background-image: url("image.jpg");
+}
+
+```
+
+### 属性声明顺序
+
+相关的属性声明按顺序做分组处理，组之间需要有一个空行。
+
+```css
+.declaration-order {
+    display: block;
+    float: right;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    width: 100px;
+    height: 100px;
+
+    font: normal 13px "Helvetica Neue", sans-serif;
+    line-height: 1.5;
+    text-align: center;
+
+    color: #333;
+    background-color: #f5f5f5;
+
+    opacity: 1;
+}
+
+/* 下面是推荐的属性的顺序 */
+[
+    [ "$import" ],
+    [ "$variable" ],
+    [ "$include" ],
+    [ "$extend" ],
+    [
+        "content",
+        "display",
+        "visibility",
+        "float",
+        "clear",
+        "overflow",
+        "overflow-x",
+        "overflow-y",
+        "clip",
+        "zoom"
+    ],
+    [
+        "table-layout",
+        "empty-cells",
+        "caption-side",
+        "border-spacing",
+        "border-collapse",
+        "list-style",
+        "list-style-position",
+        "list-style-type",
+        "list-style-image"
+    ],
+    [
+        "-webkit-box-orient",
+        "-webkit-box-direction",
+        "-webkit-box-decoration-break",
+        "-webkit-box-pack",
+        "-webkit-box-align",
+        "-webkit-box-flex"
+    ],
+    [
+        "position",
+        "top",
+        "right",
+        "bottom",
+        "left",
+        "z-index"
+    ],
+    [
+        "margin",
+        "margin-top",
+        "margin-right",
+        "margin-bottom",
+        "margin-left",
+        "-webkit-box-sizing",
+        "-moz-box-sizing",
+        "box-sizing",
+        "border",
+        "border-width",
+        "border-style",
+        "border-color",
+        "border-top",
+        "border-top-width",
+        "border-top-style",
+        "border-top-color",
+        "border-right",
+        "border-right-width",
+        "border-right-style",
+        "border-right-color",
+        "border-bottom",
+        "border-bottom-width",
+        "border-bottom-style",
+        "border-bottom-color",
+        "border-left",
+        "border-left-width",
+        "border-left-style",
+        "border-left-color",
+        "-webkit-border-radius",
+        "-moz-border-radius",
+        "border-radius",
+        "-webkit-border-top-left-radius",
+        "-moz-border-radius-topleft",
+        "border-top-left-radius",
+        "-webkit-border-top-right-radius",
+        "-moz-border-radius-topright",
+        "border-top-right-radius",
+        "-webkit-border-bottom-right-radius",
+        "-moz-border-radius-bottomright",
+        "border-bottom-right-radius",
+        "-webkit-border-bottom-left-radius",
+        "-moz-border-radius-bottomleft",
+        "border-bottom-left-radius",
+        "-webkit-border-image",
+        "-moz-border-image",
+        "-o-border-image",
+        "border-image",
+        "-webkit-border-image-source",
+        "-moz-border-image-source",
+        "-o-border-image-source",
+        "border-image-source",
+        "-webkit-border-image-slice",
+        "-moz-border-image-slice",
+        "-o-border-image-slice",
+        "border-image-slice",
+        "-webkit-border-image-width",
+        "-moz-border-image-width",
+        "-o-border-image-width",
+        "border-image-width",
+        "-webkit-border-image-outset",
+        "-moz-border-image-outset",
+        "-o-border-image-outset",
+        "border-image-outset",
+        "-webkit-border-image-repeat",
+        "-moz-border-image-repeat",
+        "-o-border-image-repeat",
+        "border-image-repeat",
+        "padding",
+        "padding-top",
+        "padding-right",
+        "padding-bottom",
+        "padding-left",
+        "width",
+        "min-width",
+        "max-width",
+        "height",
+        "min-height",
+        "max-height"
+    ],
+    [
+        "font",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "font-style",
+        "font-variant",
+        "font-size-adjust",
+        "font-stretch",
+        "font-effect",
+        "font-emphasize",
+        "font-emphasize-position",
+        "font-emphasize-style",
+        "font-smooth",
+        "line-height",
+        "text-align",
+        "-webkit-text-align-last",
+        "-moz-text-align-last",
+        "-ms-text-align-last",
+        "text-align-last",
+        "vertical-align",
+        "white-space",
+        "text-decoration",
+        "text-emphasis",
+        "text-emphasis-color",
+        "text-emphasis-style",
+        "text-emphasis-position",
+        "text-indent",
+        "-ms-text-justify",
+        "text-justify",
+        "letter-spacing",
+        "word-spacing",
+        "-ms-writing-mode",
+        "text-outline",
+        "text-transform",
+        "text-wrap",
+        "-ms-text-overflow",
+        "text-overflow",
+        "text-overflow-ellipsis",
+        "text-overflow-mode",
+        "-ms-word-wrap",
+        "word-wrap",
+        "-ms-word-break",
+        "word-break"
+    ],
+    [
+        "color",
+        "background",
+        "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader",
+        "background-color",
+        "background-image",
+        "background-repeat",
+        "background-attachment",
+        "background-position",
+        "-ms-background-position-x",
+        "background-position-x",
+        "-ms-background-position-y",
+        "background-position-y",
+        "-webkit-background-clip",
+        "-moz-background-clip",
+        "background-clip",
+        "background-origin",
+        "-webkit-background-size",
+        "-moz-background-size",
+        "-o-background-size",
+        "background-size"
+    ],
+    [
+        "outline",
+        "outline-width",
+        "outline-style",
+        "outline-color",
+        "outline-offset",
+        "opacity",
+        "filter:progid:DXImageTransform.Microsoft.Alpha(Opacity",
+        "-ms-filter:\\'progid:DXImageTransform.Microsoft.Alpha",
+        "-ms-interpolation-mode",
+        "-webkit-box-shadow",
+        "-moz-box-shadow",
+        "box-shadow",
+        "filter:progid:DXImageTransform.Microsoft.gradient",
+        "-ms-filter:\\'progid:DXImageTransform.Microsoft.gradient",
+        "text-shadow"
+    ],
+    [
+        "-webkit-transition",
+        "-moz-transition",
+        "-ms-transition",
+        "-o-transition",
+        "transition",
+        "-webkit-transition-delay",
+        "-moz-transition-delay",
+        "-ms-transition-delay",
+        "-o-transition-delay",
+        "transition-delay",
+        "-webkit-transition-timing-function",
+        "-moz-transition-timing-function",
+        "-ms-transition-timing-function",
+        "-o-transition-timing-function",
+        "transition-timing-function",
+        "-webkit-transition-duration",
+        "-moz-transition-duration",
+        "-ms-transition-duration",
+        "-o-transition-duration",
+        "transition-duration",
+        "-webkit-transition-property",
+        "-moz-transition-property",
+        "-ms-transition-property",
+        "-o-transition-property",
+        "transition-property",
+        "-webkit-transform",
+        "-moz-transform",
+        "-ms-transform",
+        "-o-transform",
+        "transform",
+        "-webkit-transform-origin",
+        "-moz-transform-origin",
+        "-ms-transform-origin",
+        "-o-transform-origin",
+        "transform-origin",
+        "-webkit-animation",
+        "-moz-animation",
+        "-ms-animation",
+        "-o-animation",
+        "animation",
+        "-webkit-animation-name",
+        "-moz-animation-name",
+        "-ms-animation-name",
+        "-o-animation-name",
+        "animation-name",
+        "-webkit-animation-duration",
+        "-moz-animation-duration",
+        "-ms-animation-duration",
+        "-o-animation-duration",
+        "animation-duration",
+        "-webkit-animation-play-state",
+        "-moz-animation-play-state",
+        "-ms-animation-play-state",
+        "-o-animation-play-state",
+        "animation-play-state",
+        "-webkit-animation-timing-function",
+        "-moz-animation-timing-function",
+        "-ms-animation-timing-function",
+        "-o-animation-timing-function",
+        "animation-timing-function",
+        "-webkit-animation-delay",
+        "-moz-animation-delay",
+        "-ms-animation-delay",
+        "-o-animation-delay",
+        "animation-delay",
+        "-webkit-animation-iteration-count",
+        "-moz-animation-iteration-count",
+        "-ms-animation-iteration-count",
+        "-o-animation-iteration-count",
+        "animation-iteration-count",
+        "-webkit-animation-direction",
+        "-moz-animation-direction",
+        "-ms-animation-direction",
+        "-o-animation-direction",
+        "animation-direction"
+    ],
+    [
+        "quotes",
+        "counter-reset",
+        "counter-increment",
+        "resize",
+        "cursor",
+        "-webkit-user-select",
+        "-moz-user-select",
+        "-ms-user-select",
+        "user-select",
+        "nav-index",
+        "nav-up",
+        "nav-right",
+        "nav-down",
+        "nav-left",
+        "-moz-tab-size",
+        "-o-tab-size",
+        "tab-size",
+        "-webkit-hyphens",
+        "-moz-hyphens",
+        "hyphens",
+        "pointer-events"
+    ]
+]
+```
+
+### 带前缀的属性
+
+当使用特定厂商的带有前缀的属性时，通过缩进的方式，让每个属性的值在垂直方向对齐，这样便于多行编辑。
+
+```css
+.element {
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+
+    background: -webkit-linear-gradient(top, #fff 0, #eee 100%);
+    background:    -moz-linear-gradient(top, #fff 0, #eee 100%);
+    background:         linear-gradient(top, #fff 0, #eee 100%);
+}
+```
+
+### 清除浮动
+
+📌 当元素需要撑起高度以包含内部的浮动元素时，通过对伪类设置 `clear` 或触发 [BFC](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context) 的方式进行 `clearfix`。尽量不使用增加空标签的方式。
+
+如希望使用更小副作用的清除浮动方法，参见 [A new micro clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/) 一文。对已经触发 BFC 的元素不需要再进行 clearfix。
+
+```scss
+.clearfix {
+    /**
+     * IE < 8
+     * Include this rule to trigger hasLayout and contain floats.
+     */
+    zoom: 1;
+
+    /**
+     * For modern browsers
+     * 1. The space content is one way to avoid an Opera bug when the
+     *    contenteditable attribute is included anywhere else in the document.
+     *    Otherwise it causes space to appear at the top and bottom of elements
+     *    that are clearfixed.
+     * 2. The use of `table` rather than `block` is only necessary if using
+     *    `:before` to contain the top-margins of child elements.
+     */
+    &:before,
+    &:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+    &:after {
+        clear: both;
+    }
+}
+```
+
+### Less 和 Sass 中的嵌套
+
+📌避免不必要的嵌套。
+
+这是因为虽然你可以使用嵌套，但是并不意味着应该使用嵌套。只有在必须将样式限制在父元素内（也就是后代选择器），并且存在多个需要嵌套的元素时才使用嵌套。
+
+扩展阅读：[Nesting in Sass and Less](http://markdotto.com/2015/07/20/css-nesting/)
+
+```scss
+// bad
+.table > thead > tr > th {
+    ...
+}
+.table > thead > tr > td {
+    ...
+}
+
+// good
+.table > thead > tr {
+    > th {
+        ...
+    }
+    > td {
+        ...
+    }
+}
+
+// best use bem
+.table {
+    > &__item {
+        ...
+    }
 }
 ```
 
