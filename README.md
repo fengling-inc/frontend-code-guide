@@ -88,12 +88,12 @@ b_qianxun_tianmao_props_tooltip_20171211  # good
 
 ### 语法
 
-- 🚨用**四个空格**来代替制表符（tab）。 —— 「这是唯一能保证在所有环境下获得一致展现的方法」
-- 🚨嵌套元素应当缩进一次（即四个空格）。
-- 🚨对于属性的定义，永远全部使用双引号，绝对不要使用单引号。
-- 🚨属性名全小写，用中划线做分隔符。
-- 🚨不要省略可选的结束标签（closing tag）（例如，`</li>` 或 `</body>`）。
-- 📌不要在自闭合（self-closing）元素的尾部添加斜线。 —— 「[HTML5 规范](http://dev.w3.org/html5/spec-author-view/syntax.html#syntax-start-tag) 中明确说明斜线是可忽略的」
+🚨用**四个空格**来代替制表符（tab）。 —— 「这是唯一能保证在所有环境下获得一致展现的方法」
+🚨嵌套元素应当缩进一次（即四个空格）。
+🚨对于属性的定义，永远全部使用双引号，绝对不要使用单引号。
+🚨属性名全小写，用中划线做分隔符。
+🚨不要省略可选的结束标签（closing tag）（例如，`</li>` 或 `</body>`）。
+📌不要在自闭合（self-closing）元素的尾部添加斜线。 —— 「[HTML5 规范](http://dev.w3.org/html5/spec-author-view/syntax.html#syntax-start-tag) 中明确说明斜线是可忽略的」
 
 ```html
 <!DOCTYPE html>
