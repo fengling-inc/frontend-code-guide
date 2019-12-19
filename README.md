@@ -24,11 +24,35 @@
 
 > 例：index.html, test-data.js, error-report.sass, custom-component.vue
 
+## Git 规范
+
+首先记得在项目中配置 git 的 username 和 email 设置为花名和公司邮箱
+
+```bash
+git config user.name ${花名}
+git config user.email ${公司邮箱}
+```
+
+### commits
+
+~~Git Commit Message 按 [「git Conventional Commits」](https://conventionalcommits.org/) 约定 提交。~~ **待定**
+
+### 分支命名
+
+分支主要分为三种，版本分支、特性分支、BUG分支：
+
+- 版本分支: 一般无需管理，主要有：`master`, `release`, `dev`；
+- 特性分支: 新需求时启用此分支，命名为： `f_{username}{desc}${date:yyyyMMddHH}`
+- BUG 分支: 当有 BUG 时启用此分支，命名为： `b_{username}{desc}${date:yyyyMMddHH}`
+
+### 命名最好简洁易懂
+
+```bash
+b_qianxun_fixTmPropsTooltipBug_20171211   # bad
+b_qianxun_tianmao_props_tooltip_20171211  # good
+```
+
 ## HTML
-
-### 实用为王
-
-尽量遵循 HTML 标准和语义，但是不要以牺牲实用性为代价。任何时候都要尽量使用最少的标签并保持最小的复杂度。
 
 ### 语法
 
@@ -73,17 +97,39 @@ IE 支持通过特定的 `<meta>` 标签来确定绘制当前页面所应该采�
 
 了解更多信息请 阅读这篇 [Stack Overflow](https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do) 上的文章。
 
+```html
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+```
+
+### 协议
+
+省略图像、媒体文件、样式表和脚本等 URL 协议头部声明 (`http:`, `https:`)。如果不是这两个声明的 URL 则不省略。
+
+省略协议声明，使 URL 成相对地址，防止内容混淆问题和导致小文件重复下载。
+
+```html
+<!-- very bad -->
+<script src="http://alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
+
+<!-- bad -->
+<script src="https://alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
+
+<!-- good -->
+<script src="//alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
+```
+
 ### 属性顺序
 
 HTML 属性应当按照以下给出的顺序依次排列，确保代码的易读性。
 
-class
-id, name
-data-*
-src, for, type, href, value
-title, alt
-role, aria-*
-class 用于标识高度可复用组件，因此应该排在首位。id 用于标识具体组件，应当谨慎使用（例如，页面内的书签），因此排在第二位。
+- `class`
+- `id`, `name`
+- `data-*`
+- `src`, `for`, `type`, `href`, `value`
+- `title`, `alt`
+- `role`, `aria-*`
+
+`class` 用于标识高度可复用组件，因此应该排在首位。`id` 用于标识具体组件，应当谨慎使用，因此排在第二位。
 
 ```html
 <a class="..." id="..." data-toggle="modal" href="#">
@@ -133,9 +179,39 @@ class 用于标识高度可复用组件，因此应该排在首位。id 用于�
 <img class="avatar" src="...">
 ```
 
-## JavaScript 生成的标签
+### JavaScript 生成的标签
 
 通过 JavaScript 生成的标签让内容变得不易查找、编辑，并且降低性能。能避免时尽量避免。
+
+### 实用为王
+
+尽量遵循 HTML 标准和语义，但是不要以牺牲实用性为代价。任何时候都要尽量使用最少的标签并保持最小的复杂度。
+
+```html
+<!-- bad -->
+<div onclick="goToItems();">jump to items</div>
+
+<!-- good -->
+<a href="/items">jump to items</a>
+```
+
+## CSS
+
+### 缩进
+
+使用soft tab（4个空格）。
+
+```css
+.element {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+```
 
 ## 参考
 
