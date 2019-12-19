@@ -2,6 +2,31 @@
 
 本文档定义了 HTML、CSS、JavaScript 以及 Vue 的编写格式和风格规则。旨在促进协作编程、提高代码质量并使其支持基础架构。
 
+## 目录
+
+- [目录](#%e7%9b%ae%e5%bd%95)
+- [项目规范](#%e9%a1%b9%e7%9b%ae%e8%a7%84%e8%8c%83)
+    - [项目命名](#%e9%a1%b9%e7%9b%ae%e5%91%bd%e5%90%8d)
+    - [目录命名](#%e7%9b%ae%e5%bd%95%e5%91%bd%e5%90%8d)
+    - [文件命名](#%e6%96%87%e4%bb%b6%e5%91%bd%e5%90%8d)
+- [Git 规范](#git-%e8%a7%84%e8%8c%83)
+    - [commits](#commits)
+    - [分支命名](#%e5%88%86%e6%94%af%e5%91%bd%e5%90%8d)
+    - [命名最好简洁易懂](#%e5%91%bd%e5%90%8d%e6%9c%80%e5%a5%bd%e7%ae%80%e6%b4%81%e6%98%93%e6%87%82)
+- [HTML](#html)
+    - [语法](#%e8%af%ad%e6%b3%95)
+    - [语言属性](#%e8%af%ad%e8%a8%80%e5%b1%9e%e6%80%a7)
+    - [IE 兼容模式](#ie-%e5%85%bc%e5%ae%b9%e6%a8%a1%e5%bc%8f)
+    - [协议](#%e5%8d%8f%e8%ae%ae)
+    - [属性顺序](#%e5%b1%9e%e6%80%a7%e9%a1%ba%e5%ba%8f)
+    - [布尔（boolean）型属性](#%e5%b8%83%e5%b0%94boolean%e5%9e%8b%e5%b1%9e%e6%80%a7)
+    - [减少标签的数量](#%e5%87%8f%e5%b0%91%e6%a0%87%e7%ad%be%e7%9a%84%e6%95%b0%e9%87%8f)
+    - [JavaScript 生成的标签](#javascript-%e7%94%9f%e6%88%90%e7%9a%84%e6%a0%87%e7%ad%be)
+    - [实用为王](#%e5%ae%9e%e7%94%a8%e4%b8%ba%e7%8e%8b)
+- [CSS](#css)
+    - [缩进](#%e7%bc%a9%e8%bf%9b)
+- [参考](#%e5%8f%82%e8%80%83)
+
 ## 项目规范
 
 ### 项目命名
@@ -81,7 +106,7 @@ b_qianxun_tianmao_props_tooltip_20171211  # good
 
 根据 HTML5 规范：
 
-> 强烈建议为 html 根元素指定 `lang` 属性，从而为文档设置正确的语言。这将有助于语音合成工具确定其所应该采用的发音，有助于翻译工具确定其翻译时所应遵守的规则等等。
+> 强烈建议为 html 根元素指定 `lang` 属性，从而为文档设置正确的语言。这将有助于语音合成工具确定其所应采用的发音，有助于翻译工具确定其翻译时所应遵守的规则等等。
 
 更多关于 `lang` 属性的知识可以从 [此规范](http://www.w3.org/html/wg/drafts/html/master/semantics.html#the-html-element) 中了解。Sitepoint 站点上 [给出了一份语言代码表](https://www.sitepoint.com/iso-2-letter-language-codes/)。
 
@@ -95,7 +120,7 @@ b_qianxun_tianmao_props_tooltip_20171211  # good
 
 IE 支持通过特定的 `<meta>` 标签来确定绘制当前页面所应该采用的 IE 版本。除非有强烈的特殊需求，否则最好是设置为 **edge mode**，从而通知 IE 采用其所支持的最新的绘制模式。
 
-了解更多信息请 阅读这篇 [Stack Overflow](https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do) 上的文章。
+了解更多信息请阅读 [Stack Overflow](https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do) 上的文章。
 
 ```html
 <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -103,9 +128,9 @@ IE 支持通过特定的 `<meta>` 标签来确定绘制当前页面所应该采�
 
 ### 协议
 
-省略图像、媒体文件、样式表和脚本等 URL 协议头部声明 (`http:`, `https:`)。如果不是这两个声明的 URL 则不省略。
+省略图像、媒体文件、样式表和脚本等 URL 的协议头声明「`http:`、`https:`」。如果不是这两个声明的 URL 则不省略。
 
-省略协议声明，使 URL 成相对地址，防止内容混淆问题和导致小文件重复下载。
+省略协议声明，使 URL 成相对地址，防止内容混淆问题和文件加载异常。
 
 ```html
 <!-- very bad -->
@@ -199,7 +224,7 @@ HTML 属性应当按照以下给出的顺序依次排列，确保代码的易读
 
 ### 缩进
 
-使用soft tab（4个空格）。
+使用**四个空格**来代替制表符 (tab) 缩进。
 
 ```css
 .element {
