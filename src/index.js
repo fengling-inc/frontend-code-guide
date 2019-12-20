@@ -14,7 +14,7 @@ import './stylesheet/app.scss';
 
 Vue.use(VueRouter);
 
-const component = r => r(require('../README.md'));
+const component = (r) => r(require('../README.md'));
 const router = new VueRouter({
     routes: [
         {
@@ -36,7 +36,7 @@ router.afterEach((route, from) => {
         const blocks = document.querySelectorAll('pre code:not(.hljs)');
 
         // 性能优化
-        Promise.mapSeries(blocks, async el => hljs.highlightBlock(el));
+        Promise.mapSeries(blocks, async (el) => hljs.highlightBlock(el));
     });
 });
 
@@ -45,5 +45,5 @@ export default new Vue({
     mounted () {
         document.dispatchEvent(new Event('render-event'));
     },
-    render: r => r(App)
+    render: (r) => r(App)
 }).$mount('#app');
