@@ -45,6 +45,8 @@
     - [清除浮动](#%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8)
     - [Less 和 Sass 中的嵌套](#less-%e5%92%8c-sass-%e4%b8%ad%e7%9a%84%e5%b5%8c%e5%a5%97)
     - [注释](#%e6%b3%a8%e9%87%8a)
+- [JavaScript](#javascript)
+    - [缩进](#%e7%bc%a9%e8%bf%9b-1)
 - [参考](#%e5%8f%82%e8%80%83)
 
 ## 项目规范
@@ -633,6 +635,20 @@ li[data-type="single"] {
 ```
 
 [返回目录 ⏫](#%e7%9b%ae%e5%bd%95)
+
+## JavaScript
+
+### 缩进
+
+使用**四个空格**进行缩进。
+
+eslint: [`indent`](http://eslint.org/docs/rules/indent)
+
+```js
+    function hello (name) {
+        console.log('hi', name)
+    }
+```
 
 ## 参考
 

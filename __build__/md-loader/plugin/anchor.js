@@ -38,7 +38,7 @@ const renderPermalink = (slug, opts, state, idx) => {
 
 const uniqueSlug = (slug, slugs) => {
   let uniq = slug
-  let i = 2
+  let i = 1
   while (hasProp.call(slugs, uniq)) uniq = `${slug}-${i++}`
   slugs[uniq] = true
   return uniq

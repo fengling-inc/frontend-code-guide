@@ -4,4 +4,5 @@
     "MD013": { "line_length": 300 },
     "no-hard-tabs": true,
     "no-inline-html": false,
+    "no-duplicate-header": false,
 }
