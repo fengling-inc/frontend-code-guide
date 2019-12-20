@@ -9,16 +9,23 @@ import hljs from 'highlight.js';
 import VueRouter from 'vue-router';
 import Promise, { resolve } from 'bluebird';
 import App from './views/app.vue';
-import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/github.css';
+import './stylesheet/app.scss';
 
 Vue.use(VueRouter);
 
+const component = r => r(require('../README.md'));
 const router = new VueRouter({
     routes: [
         {
             path: '/',
             name: 'home',
-            component: r => r(require('../README.md')),
+            component,
+        },
+        {
+            path: '/pages/devops/frontend-code-guide/',
+            name: 'home',
+            component,
         }
     ],
     mode: 'history',

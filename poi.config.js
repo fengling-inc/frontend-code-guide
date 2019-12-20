@@ -6,8 +6,9 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const AssetsPlugin = require('assets-webpack-plugin');
-const { DEBUG, version, distRoot } = require('./__build__/libs/utils');
+const { distRoot } = require('./__build__/libs/utils');
+
+const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     entry: './src/index.js',
@@ -19,7 +20,7 @@ module.exports = {
             js: '[name].[hash].js',
             css: '[name].[hash].css',
         },
-        publicUrl: DEBUG ? '' : '//alicdn.huanleguang.com/hlgui/dist/',
+        publicUrl: './',
     },
     css: {
         extract: !DEBUG,
@@ -57,13 +58,6 @@ module.exports = {
         resolve: {
             alias: {
                 vue$: 'vue/dist/vue.js',
-                '@packages': path.resolve('./packages'),
-                '@src': path.resolve('./src/'),
-                '@services': path.resolve('./src/services'),
-                '@mixins': path.resolve('./src/mixins'),
-                '@stylesheet': path.resolve('./src/stylesheet'),
-                '@directives': path.resolve('./src/directives'),
-                'hlg-ui': path.resolve(__dirname),
             },
             extensions: ['.js', '.vue', '.json'],
         },
@@ -76,16 +70,8 @@ module.exports = {
                 banner: '(c)2019 huanleguang.com',
             }),
             new webpack.DefinePlugin({
-                __VERSION__: version,
                 __DEBUG__: DEBUG,
-                'process.env.NODE_ENV': JSON.stringify('production')
-            }),
-            new AssetsPlugin({
-                path: distRoot,
-                filename: `${version}.json`,
-                fullPath: false,
-                prettyPrint: true,
-                update: true,
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             }),
         ],
     }

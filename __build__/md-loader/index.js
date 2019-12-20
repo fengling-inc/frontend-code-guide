@@ -4,66 +4,89 @@
  * @Date: 2019-03-15 10:49:04
  */
 
-const { stripScript, stripTemplate, genInlineComponentText } = require('./utils');
+const cheerio = require('cheerio');
 const md = require('./markdown');
+const { encodeHtml } = require('./utils');
+
 
 module.exports = function (source) {
     const content = md.render(source);
+    const $ = cheerio.load(`<section class="content">${content}</section>`, {
+        decodeEntities: false,
+        xmlMode: false,
+    });
 
-    const startTag = '<!--element-demo:';
-    const startTagLen = startTag.length;
-    const endTag = ':element-demo-->';
-    const endTagLen = endTag.length;
+    let isHeader = false;
+    let isSection = false;
+    let index = -1;
+    const headers = [];
+    const sections = [];
 
-    let componenetsString = '';
-    let id = 0; // demo 的 id
-    let output = []; // 输出的内容
-    let start = 0; // 字符串开始位置
+    $('.content').children().map((inx, el) => {
+        if (el.type === 'tag' && el.name === 'h1') {
+            headers.push(el);
+            isHeader = true;
+            return el;
+        }
+        if (el.type === 'tag' && el.name === 'h2') {
+            sections.push(el);
+            isSection = false;
+            isHeader = false;
+            index += 1;
+            return el;
+        }
+        if (el.type === 'tag' && el.name === 'h3') {
+            index += 1;
+            isHeader = false;
+            isSection = true;
+            sections[index] = [el];
+            return el;
+        }
 
-    let commentStart = content.indexOf(startTag);
-    let commentEnd = content.indexOf(endTag, commentStart + startTagLen);
-    while (commentStart !== -1 && commentEnd !== -1) {
-        output.push(content.slice(start, commentStart));
+        if (isHeader) {
+            headers.push(el);
+            return el;
+        }
 
-        const commentContent = content.slice(commentStart + startTagLen, commentEnd);
-        const html = stripTemplate(commentContent);
-        const script = stripScript(commentContent);
-        let demoComponentContent = genInlineComponentText(html, script);
-        const demoComponentName = `element-demo${id}`;
-        output.push(`<${demoComponentName} slot="source" />`);
-        componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
+        if (isSection) {
+            sections[index].push(el);
+            return el;
+        }
 
-        // 重新计算下一次的位置
-        id += 1;
-        start = commentEnd + endTagLen;
-        commentStart = content.indexOf(startTag, start);
-        commentEnd = content.indexOf(endTag, commentStart + startTagLen);
-    }
+        index += 1;
+        sections.push(el);
+    });
 
-    // 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
-    // todo: 优化这段逻辑
-    let pageScript = '';
-    if (componenetsString) {
-        pageScript = `<script>
-export default {
-    name: 'component-doc',
-    components: {
-        ${componenetsString}
-    }
-}
-</script>`;
-    } else if (content.indexOf('<script>') === 0) { // 硬编码，有待改善
-        start = content.indexOf('</script>') + '</script>'.length;
-        pageScript = content.slice(0, start);
-    }
+    let data = '';
+    let headerHtml = '';
 
-    output.push(content.slice(start));
-    return `
-<template>
-    <section class="content">
-        ${output.join('')}
-    </section>
-</template>
-${pageScript}
-  `;
+    headers.map(item => {
+        headerHtml += $.html(item);
+    });
+
+    data += `<header>${headerHtml}</header>`;
+
+    sections.map(item => {
+        if (item.type === 'tag') {
+            data += $.html(item);
+            return item;
+        }
+
+        let section = ''
+        let pre = '';
+
+        item.map(el => {
+            if (el.name === 'pre') {
+                const code = $(el).find('code');
+                pre += `<pre><code class="${code.attr('class')}">${encodeHtml(code.text())}</code></pre>`
+                return el;
+            }
+
+            section += $.html(el);
+        });
+
+        data += `<section><div class="col">${section}</div>${pre ? `<div class="col">${pre}</div>` : ''}</section>`
+    });
+
+    return `<template><article class="content">${data}</article></template>`;
 };

@@ -1,0 +1,145 @@
+/*
+ * Author: 绿间
+ * Email: lvjian@huanleguang.com
+ * Date: 2019-12-19 18:17:44
+ */
+
+@import "~normalize.css";
+@import "./common.scss";
+
+html {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+
+    background: rgba(0, 0, 0, .3);
+    &:hover {
+        background: rgba(0, 0, 0, .5);
+    }
+}
+::-webkit-scrollbar-corner {
+    display: none;
+}
+
+.content {
+    header {
+        display: block;
+
+        padding: 3em 1em;
+
+        text-align: center;
+
+        color: #fff;
+        background-color: #2a3440;
+    }
+
+    section {
+        display: table;
+
+        table-layout: fixed;
+
+        border-top: 1px solid #dfe1e8;
+        width: 100%;
+        .col {
+            display: table-cell;
+
+            padding: 3em;
+            width: 50%;
+            min-width: 50%;
+            + .col {
+                background: #f8f8f8;
+            }
+        }
+        pre {
+            margin: 0;
+            height: 100%;
+
+            white-space: pre-wrap;
+            code {
+                bottom: 0;
+
+                padding: 0;
+            }
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        position: relative;
+        .header-anchor {
+            position: absolute;
+            left: -1em;
+
+            opacity: 0;
+        }
+        &:hover .header-anchor {
+            text-decoration: none;
+
+            opacity: 1;
+        }
+    }
+
+    h1 {
+        font-size: 3.5em;
+    }
+
+    h2 {
+        margin: 0;
+        padding: 2em 1em;
+
+        font-size: 2.5em;
+
+        background-color: #dfe1e8;
+    }
+
+    h3 {
+        @extend %clearfix;
+
+        margin-top: 0;
+
+        font-size: 1.75em;
+    }
+
+    p,
+    li {
+        code {
+            margin: 0;
+            border-radius: 3px;
+            padding: .2em .4em;
+
+            font-size: 85%;
+
+            background-color: rgba(27,31,35,.05);
+        }
+    }
+
+    blockquote {
+        margin: 0;
+        border-left: .25em solid #dfe2e5;
+        padding: 0 1em;
+
+        color: #6a737d;
+    }
+
+    a {
+        text-decoration: none;
+
+        color: #08c;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

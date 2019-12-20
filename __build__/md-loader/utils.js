@@ -78,11 +78,27 @@ function genInlineComponentText(template, script) {
     return demoComponentContent;
 }
 
+function encodeHtml(str){
+    let s = "";
+    if (str.length == 0) return "";
+
+    s = str.replace(/&/g,"&gt;");
+    s = s.replace(/</g,"&lt;");
+    s = s.replace(/>/g,"&gt;");
+    s = s.replace(/ /g,"&nbsp;");
+    s = s.replace(/\'/g,"&apos;");
+    s = s.replace(/\"/g,"&quot;");
+    s = s.replace(/\n/g,"<br>");
+
+    return s;
+}
+
 module.exports = {
     stripScript,
     stripStyle,
     stripTemplate,
     genInlineComponentText,
+    encodeHtml,
     convert(str) {
         return str.replace(
             /(&#x)(\w{4});/gi,
