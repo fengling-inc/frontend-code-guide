@@ -50,8 +50,8 @@
 - [JavaScript](#javascript)
     - [缩进](#%e7%bc%a9%e8%bf%9b-1)
     - [单行长度](#%e5%8d%95%e8%a1%8c%e9%95%bf%e5%ba%a6)
-    - [引号](#%e5%bc%95%e5%8f%b7-1)
     - [空格](#%e7%a9%ba%e6%a0%bc-1)
+    - [引号](#%e5%bc%95%e5%8f%b7-1)
     - [分号](#%e5%88%86%e5%8f%b7-1)
     - [逗号](#%e9%80%97%e5%8f%b7)
     - [括号](#%e6%8b%ac%e5%8f%b7)
@@ -62,8 +62,11 @@
     - [函数](#%e5%87%bd%e6%95%b0)
     - [数组](#%e6%95%b0%e7%bb%84)
     - [对象](#%e5%af%b9%e8%b1%a1)
+    - [字符串](#%e5%ad%97%e7%ac%a6%e4%b8%b2)
+    - [运算符和条件语句](#%e8%bf%90%e7%ae%97%e7%ac%a6%e5%92%8c%e6%9d%a1%e4%bb%b6%e8%af%ad%e5%8f%a5)
     - [正则](#%e6%ad%a3%e5%88%99)
     - [ES6](#es6)
+    - [最佳实践](#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5)
     - [Node.js](#nodejs)
 - [参考](#%e5%8f%82%e8%80%83)
 
@@ -665,6 +668,10 @@ eslint: [`indent`](http://cn.eslint.org/docs/rules/indent)
 
 eslint: [`no-mixed-spaces-and-tabs`](http://eslint.org/docs/rules/no-mixed-spaces-and-tabs)
 
+🚨✅禁止使用制表符(tab)。
+
+eslint: [`no-tabs`](http://cn.eslint.org/docs/rules/no-tabs)
+
 ```js
 function hello(name) {
     console.log('hi', name)
@@ -691,23 +698,6 @@ $.ajax({
 })
     .done(() => console.log('Congratulations!'))
     .fail(() => console.log('You have failed this name.'));
-```
-
-### 引号
-
-🚨✅最外层统一使用单引号。
-
-eslint: [`quotes`](http://cn.eslint.org/docs/rules/quotes)
-
-```js
-// bad
-const name = "Capt. Janeway";
-
-// bad
-const name = `Capt. Janeway`;
-
-// good
-const name = 'Capt. Janeway';
 ```
 
 ### 空格
@@ -845,6 +835,41 @@ if (user) {
 if (user) {
     const name = getName();
 }
+```
+
+### 引号
+
+🚨✅最外层统一使用单引号。
+
+eslint: [`quotes`](http://cn.eslint.org/docs/rules/quotes)
+
+🚨✅只对那些无效的标示使用引号 `''`
+
+eslint: [`quote-props`](http://cn.eslint.org/docs/rules/quote-props)
+
+```js
+// bad
+const name = "Capt. Janeway";
+
+// bad
+const name = `Capt. Janeway`;
+
+// good
+const name = 'Capt. Janeway';
+
+// bad
+const bad = {
+    'foo': 3,
+    'bar': 4,
+    'data-blah': 5,
+};
+
+// good
+const good = {
+    foo: 3,
+    bar: 4,
+    'data-blah': 5,
+};
 ```
 
 ### 分号
@@ -1187,6 +1212,22 @@ eslint: [`no-obj-calls`](http://cn.eslint.org/docs/rules/no-obj-calls)
 
 eslint: [`wrap-iife`](http://cn.eslint.org/docs/rules/wrap-iife)
 
+🚨禁止使用 `Function` 构造器。
+
+eslint: [`no-new-func`](http://cn.eslint.org/docs/rules/no-new-func)
+
+🚨避免不必要的 `.call()` 和 `.apply()`。
+
+eslint: [`no-useless-call`](http://cn.eslint.org/docs/rules/no-useless-call)
+
+🚨`return`，`throw`，`continue` 和 `break` 后不要再跟代码。
+
+eslint: [`no-unreachable`](http://cn.eslint.org/docs/rules/no-unreachable)
+
+🚨避免使用 `arguments.callee` 和 `arguments.caller`。
+
+eslint: [`no-caller`](http://cn.eslint.org/docs/rules/no-caller)
+
 ```js
 // bad
 function name ( arg ) { ... }
@@ -1244,6 +1285,30 @@ const getName = function() { }();
 // good
 const getName = (function() { }());
 const getName = (function() { })();
+
+// bad
+const sum = new Function('a', 'b', 'return a + b');
+
+// bad
+sum.call(null, 1, 2, 3);
+
+// bad
+function doSomething () {
+    return true;
+    console.log('never called');
+}
+
+// bad
+function foo (n) {
+    if (n <= 0) return;
+    arguments.callee(n - 1);
+}
+
+// bad
+function foo (n) {
+    if (n <= 0) return;
+    foo(n - 1);
+}
 ```
 
 ### 数组
@@ -1301,6 +1366,14 @@ eslint: [`no-new`](http://cn.eslint.org/docs/rules/no-new)
 
 eslint: [`no-useless-computed-key`](http://cn.eslint.org/docs/rules/no-useless-computed-key)
 
+🚨使用 `getPrototypeOf` 来替代 **`__proto__`**。
+
+eslint: [`no-proto`](http://cn.eslint.org/docs/rules/no-proto)
+
+🚨禁止直接使用 ``Object.prototypes`的内置属性
+
+eslint: [`no-prototype-builtins`](<http://cn.eslint.org/docs/rules/no-prototype-builtins)>
+
 ```js
 // bad
 let config = new Object();
@@ -1355,6 +1428,196 @@ const user = { ['name']: 'John Doe' };
 
 // good
 const user = { name: 'John Doe' };
+
+// bad
+const foo = obj.__proto__;
+
+// good
+const foo = Object.getPrototypeOf(obj);
+
+// bad
+const hasBarProperty = foo.hasOwnProperty("bar");
+
+// good
+const hasBarProperty = Object.prototype.hasOwnProperty.call(foo, "bar");
+```
+
+### 字符串
+
+🚨禁止使用原始包装器。
+
+eslint: [`no-new-wrappers`](http://cn.eslint.org/docs/rules/no-new-wrappers)
+
+🚨不要使用多行字符串。
+
+eslint: [`no-multi-str`](http://cn.eslint.org/docs/rules/no-multi-str)
+
+🚨字符串字面量中也不要使用八进制转义字符。
+
+eslint: [`no-octal-escape`](http://cn.eslint.org/docs/rules/no-octal-escape)
+
+🚨禁止不必要的转义。
+
+eslint: [`no-useless-escape`](http://cn.eslint.org/docs/rules/no-useless-escape)
+
+```js
+// bad
+const message = new String('hello');
+
+// bad
+const message = 'Hello \
+                world';
+
+// bad
+const copyright = 'Copyright \251';
+
+// bad
+let message = 'Hell\o';
+```
+
+### 运算符和条件语句
+
+🚨避免使用逗号操作符。
+
+eslint: [`no-sequences`](http://cn.eslint.org/docs/rules/no-sequences)
+
+🚨不要使用非法的空白符。
+
+eslint: [`no-irregular-whitespace`](http://cn.eslint.org/docs/rules/no-irregular-whitespace)
+
+🚨点号操作符须与属性需在同一行。
+
+eslint: [`dot-location`](http://cn.eslint.org/docs/rules/dot-location)
+
+🚨始终使用 `===` 替代 `==`。<br>
+例外： `obj == null` 可以用来检查 `null || undefined`。
+
+eslint: [`eqeqeq`](http://cn.eslint.org/docs/rules/eqeqeq)
+
+🚨对于三元运算符 `?` 和 `:` 与他们所负责的代码处于同一行
+
+eslint: [`operator-linebreak`](http://cn.eslint.org/docs/rules/operator-linebreak)
+
+🚨避免不必要的布尔转换。
+
+eslint: [`no-extra-boolean-cast`](http://cn.eslint.org/docs/rules/no-extra-boolean-cast)
+
+🚨不要省去小数点前面的0。
+
+eslint: [`no-floating-decimal`](http://cn.eslint.org/docs/rules/no-floating-decimal)
+
+🚨如果有更好的实现，尽量不要使用三元表达式。
+
+eslint: [`no-unneeded-ternary`](http://cn.eslint.org/docs/rules/no-unneeded-ternary)
+
+🚨关系运算符的左值不要做取反操作。
+
+eslint: [`no-unsafe-negation`](http://cn.eslint.org/docs/rules/no-unsafe-negation)
+
+🚨检查 `NaN` 的正确姿势是使用 `isNaN()`。
+
+eslint: [`use-isnan`](http://cn.eslint.org/docs/rules/use-isnan)
+
+🚨用合法的字符串跟 `typeof` 进行比较操作。
+
+eslint: [`valid-typeof`](http://cn.eslint.org/docs/rules/valid-typeof)
+
+🚨请书写优雅的条件语句（avoid Yoda conditions）。
+
+eslint: [`yoda`](http://cn.eslint.org/docs/rules/yoda)
+
+🚨避免使用常量作为条件表达式的条件（循环语句除外）。
+
+eslint: [`no-constant-condition`](http://cn.eslint.org/docs/rules/no-constant-condition)
+
+```js
+// bad
+if (doSomething(), !!test) {}
+
+// bad
+function myFunc () /*<\NBSP>*/{}
+
+// bad
+console.
+log('hello');
+
+// good
+console.log('hello');
+
+// good
+if (name === 'John')
+
+// bad
+if (name == 'John')
+
+// good
+if (name !== 'John')
+
+// bad
+if (name != 'John')
+
+// good
+const location = env.development ? 'localhost' : 'www.api.com';
+
+// good
+const location = env.development
+    ? 'localhost'
+    : 'www.api.com';
+
+// ✗ avoid
+const location = env.development ?
+'localhost' :
+'www.api.com';
+
+const result = true;
+
+// bad
+if (!!result) {}
+
+// good
+if (result) {}
+
+// bad
+const discount = .5;
+
+// good
+const discount = 0.5;
+
+// bad
+let score = val ? val : 0;
+
+// good
+let score = val || 0;
+
+// bad
+if (!key in obj) {}
+
+// bad
+if (price === NaN) { }
+
+// good
+if (isNaN(price)) { }
+
+// bad
+typeof name === 'undefimed'
+
+// good
+typeof name === 'undefined'
+
+// bad
+if (42 === age) { }
+
+// good
+if (age === 42) { }
+
+// bad
+if (false) {}
+
+// good
+if (x === 0) {}
+
+// good
+while (true) {}
 ```
 
 ### 正则
@@ -1559,6 +1822,176 @@ function * generator() {
 
 // good
 (a) => {};
+```
+
+### 最佳实践
+
+🚨不要丢掉异常处理中`err`参数。
+
+eslint: [`handle-callback-err`](http://cn.eslint.org/docs/rules/handle-callback-err)
+
+🚨不要使用 `debugger`。
+
+eslint: [`no-debugger`](http://cn.eslint.org/docs/rules/no-debugger)
+
+🚨`switch` 语句中不要定义重复的 `case` 分支。
+
+eslint: [`no-duplicate-case`](http://cn.eslint.org/docs/rules/no-duplicate-case)
+
+🚨不要使用 `eval()`。
+
+eslint: [`no-eval`](http://cn.eslint.org/docs/rules/no-eval)
+
+🚨`catch` 中不要对错误重新赋值。
+
+eslint: [`no-ex-assign`](http://cn.eslint.org/docs/rules/no-ex-assign)
+
+🚨`switch` 一定要使用 `break` 来将条件分支正常中断。
+
+eslint: [`no-fallthrough`](http://cn.eslint.org/docs/rules/no-fallthrough)
+
+🚨注意隐式的 `eval()`。
+
+eslint: [`no-implied-eval`](http://cn.eslint.org/docs/rules/no-implied-eval)
+
+🚨禁止使用 `__iterator__`。
+
+eslint: [`no-iterator`](http://cn.eslint.org/docs/rules/no-iterator)
+
+🚨禁止使用标签语句。
+
+eslint: [`no-labels`](http://cn.eslint.org/docs/rules/no-labels)
+
+🚨不要书写不必要的嵌套代码块。
+
+eslint: [`no-lone-blocks`](http://cn.eslint.org/docs/rules/no-lone-blocks)
+
+🚨不要使用八进制字面量。
+
+eslint: [`no-octal`](http://cn.eslint.org/docs/rules/no-octal)
+
+🚨`finally` 代码块中不要再改变程序执行流程。
+
+eslint: [`no-unsafe-finally`](http://cn.eslint.org/docs/rules/no-unsafe-finally)
+
+🚨用 `throw` 抛错时，抛出 `Error` 对象而不是字符串。
+
+eslint: [`no-throw-literal`](http://cn.eslint.org/docs/rules/no-throw-literal)
+
+🚨禁止使用 `with`。
+
+eslint: [`no-with`](http://cn.eslint.org/docs/rules/no-with)
+
+```js
+// good
+run(function (err) {
+    if (err) throw err;
+    window.alert('done');
+});
+
+// bad
+run(function (err) {
+    window.alert('done');
+});
+
+// bad
+function sum (a, b) {
+    debugger;
+    return a + b
+}
+
+switch (id) {
+    case 1:
+    // bad
+    case 1:
+}
+
+// bad
+eval( "var result = user." + propName );
+
+// good
+const result = user[propName];
+
+try {
+    // ...
+} catch (e) {
+    // bad
+    e = 'new value;
+}
+
+switch (filter) {
+    case 1:
+        doSomething();    // bad
+    case 2:
+        doSomethingElse();
+}
+
+switch (filter) {
+    case 1:
+        doSomething();
+        break           // good
+    case 2:
+        doSomethingElse();
+}
+
+switch (filter) {
+  case 1:
+      doSomething();
+      // fall through  // good too
+  case 2:
+      doSomethingElse();
+}
+
+// bad
+setTimeout("alert('Hello world')");
+
+// good
+setTimeout(function () { alert('Hello world') });
+
+// bad
+Foo.prototype.__iterator__ = function () {};
+
+// bad
+label:
+    while (true) {
+        break label;
+    }
+// bad
+function myFunc () {
+    {
+        myOtherFunc();
+    }
+}
+
+// good
+function myFunc () {
+    myOtherFunc();
+}
+
+// bad
+const octal = 042;
+
+// good
+const decimal = 34;
+const octalString = '042';
+
+// bad
+try {
+    // ...
+} catch (e) {
+    // ...
+} finally {
+    return 42;
+}
+
+// bad
+throw 'error';
+
+// good
+throw new Error('error');
+
+// bad
+with (val) {...}
 ```
 
 ### Node.js
