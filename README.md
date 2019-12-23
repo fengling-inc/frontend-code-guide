@@ -2,6 +2,8 @@
 
 本文档定义了 HTML、CSS、JavaScript 以及 Vue 的编写格式和代码规范。旨在促进协作编程、提高代码质量并提供相应的编辑器配置和构建检查工具。
 
+**掌握本规范的最好方法是安装并在自己的代码中使用它。**
+
 ## 约定
 
 - 🚨表示**强制**，必须执行
@@ -47,9 +49,22 @@
     - [注释](#%e6%b3%a8%e9%87%8a)
 - [JavaScript](#javascript)
     - [缩进](#%e7%bc%a9%e8%bf%9b-1)
+    - [单行长度](#%e5%8d%95%e8%a1%8c%e9%95%bf%e5%ba%a6)
     - [引号](#%e5%bc%95%e5%8f%b7-1)
     - [空格](#%e7%a9%ba%e6%a0%bc-1)
-    - [变量定义](#%e5%8f%98%e9%87%8f%e5%ae%9a%e4%b9%89)
+    - [分号](#%e5%88%86%e5%8f%b7-1)
+    - [逗号](#%e9%80%97%e5%8f%b7)
+    - [括号](#%e6%8b%ac%e5%8f%b7)
+    - [空行](#%e7%a9%ba%e8%a1%8c)
+    - [换行](#%e6%8d%a2%e8%a1%8c-1)
+    - [变量与声明](#%e5%8f%98%e9%87%8f%e4%b8%8e%e5%a3%b0%e6%98%8e)
+    - [变量命名](#%e5%8f%98%e9%87%8f%e5%91%bd%e5%90%8d)
+    - [函数](#%e5%87%bd%e6%95%b0)
+    - [数组](#%e6%95%b0%e7%bb%84)
+    - [对象](#%e5%af%b9%e8%b1%a1)
+    - [正则](#%e6%ad%a3%e5%88%99)
+    - [ES6](#es6)
+    - [Node.js](#nodejs)
 - [参考](#%e5%8f%82%e8%80%83)
 
 ## 项目规范
@@ -646,21 +661,43 @@ li[data-type="single"] {
 
 eslint: [`indent`](http://cn.eslint.org/docs/rules/indent)
 
+🚨✅禁止混合使用空格与 tab 作为缩进。
+
+eslint: [`no-mixed-spaces-and-tabs`](http://eslint.org/docs/rules/no-mixed-spaces-and-tabs)
+
 ```js
 function hello(name) {
     console.log('hi', name)
 }
 ```
 
+### 单行长度
+
+🚨避免一行代码超过160个字符（包含空格）。
+
+eslint: [`max-len`](http://cn.eslint.org/docs/rules/max-len.html)
+
+> 虽然现在基本人手拥有大屏显示器作为开发工具，但是过长的代码仍然不利于可读性和可维护性，所以该换行时就要换行。
+
+```javascript
+// bad
+$.ajax({ method: 'POST', url: 'https://gaoding.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this name.'));
+
+// good
+$.ajax({
+    method: 'POST',
+    url: 'https://gaoding.com/',
+    data: { name: 'John' },
+})
+    .done(() => console.log('Congratulations!'))
+    .fail(() => console.log('You have failed this name.'));
+```
+
 ### 引号
 
 🚨✅最外层统一使用单引号。
 
-eslint: [`quotes`](http://eslint.org/docs/rules/quotes)
-
-🚨✅只对那些无效的标示使用引号 `''`
-
-eslint: [`quote-props`](http://eslint.org/docs/rules/quote-props.html)
+eslint: [`quotes`](http://cn.eslint.org/docs/rules/quotes)
 
 ```js
 // bad
@@ -671,80 +708,878 @@ const name = `Capt. Janeway`;
 
 // good
 const name = 'Capt. Janeway';
-
-// bad
-const bad = {
-    'foo': 3,
-    'bar': 4,
-    'data-blah': 5,
-};
-
-// good
-const good = {
-    foo: 3,
-    bar: 4,
-    'data-blah': 5,
-};
 ```
 
 ### 空格
 
 🚨✅关键字后面加空格。
 
-eslint: [`keyword-spacing`](http://eslint.org/docs/rules/keyword-spacing)
+eslint: [`keyword-spacing`](http://cn.eslint.org/docs/rules/keyword-spacing)
 
-🚨✅函数声明时括号与函数名间加空格。
+🚨✅运算符(space-infix-ops)周围要有空格。
 
-eslint: [`space-before-function-paren`](http://eslint.org/docs/rules/space-before-function-paren)
+eslint: [`space-infix-ops`](http://cn.eslint.org/docs/rules/space-infix-ops)
 
-🚨✅中缀操作符(space-infix-ops)周围要有空格。
+🚨✅逗号后面加空格
 
-eslint: [`space-infix-ops`](http://eslint.org/docs/rules/space-infix-ops)
+eslint: [`comma-spacing`](http://eslint.org/docs/rules/comma-spacing)
 
-```js
-// ✓ ok
-var x = 2
-var message = 'hello, ' + name + '!'
-```
+🚨✅单行代码块两边加空格
 
-```js
-// ✗ avoid
-var x=2
-var message = 'hello, '+name+'!'
-```
+eslint: [`block-spacing`](http://cn.eslint.org/docs/rules/block-spacing)
+
+🚨✅除了缩进，不要使用多个空格。
+
+eslint: [`no-multi-spaces`](http://cn.eslint.org/docs/rules/no-multi-spaces)
+
+🚨✅行末不留空格。
+
+eslint: [`no-trailing-spaces`](http://cn.eslint.org/docs/rules/no-trailing-spaces)
+
+🚨✅属性前面不要加空格。
+
+eslint: [`no-whitespace-before-property`](http://cn.eslint.org/docs/rules/no-whitespace-before-property)
+
+🚨✅遇到分号时空格后留前不留。
+
+eslint: [`semi-spacing`](http://cn.eslint.org/docs/rules/semi-spacing)
+
+🚨✅代码块首尾留空格。
+
+eslint: [`space-before-blocks`](http://cn.eslint.org/docs/rules/space-before-blocks)
+
+🚨✅圆括号间不留空格。
+
+eslint: [`space-in-parens`](http://cn.eslint.org/docs/rules/space-in-parens)
+
+🚨✅一元运算符后面跟一个空格。
+
+eslint: [`space-unary-ops`](http://cn.eslint.org/docs/rules/space-unary-ops)
+
+🚨✅注释首尾留空格。
+
+eslint: [`spaced-comment`](http://cn.eslint.org/docs/rules/spaced-comment)
+
+🚨✅模板字符串中变量前后不加空格。
+
+eslint: [`template-curly-spacing`](http://cn.eslint.org/docs/rules/template-curly-spacing)
+
+🚨✅键值对当中冒号与值之间要留空格。
+
+eslint: [`key-spacing`](http://cn.eslint.org/docs/rules/key-spacing)
+
+🚨✅展开运算符与它的表达式间不要留空白。
+
+eslint: [`rest-spread-spacing`](http://cn.eslint.org/docs/rules/rest-spread-spacing)
+
+🚨✅代码块中避免多余留白
+
+eslint: [`padded-blocks`](http://cn.eslint.org/docs/rules/padded-blocks)
 
 ```js
 // bad
-if(condition) { ... }
+if(condition){ ... }
+
 // good
 if (condition) { ... }
 
 // bad
-function name (arg) { ... }
-// good
-function name(arg) { ... }
-
-// bad
-run(function () { ... });
-// good
-run(function() { ... });
-
-// bad
 const x=y+5;
+
 // good
 const x = y + 5;
+
+// bad
+function foo() {return true;}
+if (foo) { bar = 0;}
+
+// good
+function foo() { return true; }
+if (foo) { bar = 0; }
+
+// bad
+for (let i = 0 ;i < items.length ;i++) {...}
+
+// good
+for (let i = 0; i < items.length; i++) {...}
+
+// bad
+typeof!admin
+
+// good
+typeof !admin
+
+//comment           // bad
+// comment          // good
+
+/*comment*/         // bad
+/* comment */       // good
+
+// bad
+const message = `Hello, ${ name }`;
+
+// good
+const message = `Hello, ${name}`;
+
+// bad
+const obj = { 'key' : 'value' };
+const obj = { 'key' :'value' };
+const obj = { 'key':'value' };
+
+// good
+const obj = { 'key': 'value' };
+
+// bad
+fn(... args);
+
+// good
+fn(...args);
+
+if (user) {
+                            // bad
+    const name = getName();
+
+}
+
+// good
+if (user) {
+    const name = getName();
+}
 ```
 
-### 变量定义
+### 分号
+
+🚨✅结束语句后面需要加分号
+
+eslint: [`semi`](http://cn.eslint.org/docs/rules/semi.html)
+
+> 当 JavaScript 遇到没有分号结尾的一行，它会执行[自动插入分号 `Automatic Semicolon Insertion`](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion)的规则来决定行末是否加分号。如果 JavaScript 在你的断行里错误的插入了分号，就会出现一些古怪的行为。当新的功能加到 JavaScript 里后，这些规则会就变得更复杂难懂。显示的结束语句，并通过配置代码检查去捕获没有带分号的地方可以帮助你防止这种错误。
+
+[Read more](https://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214%237365214).
+
+```javascript
+// bad
+(function () {
+    const name = 'Skywalker'
+    return name
+})()
+
+// good
+(function () {
+    const name = 'Skywalker';
+    return name;
+}());
+
+// good, 行首加分号，避免文件被连接到一起时立即执行函数被当做变量来执行。
+;(() => {
+    const name = 'Skywalker';
+    return name;
+}());
+```
+
+### 逗号
+
+🚨✅多行结尾要有逗号。
+
+eslint: [`comma-dangle`](http://cn.eslint.org/docs/rules/comma-dangle.html)
+
+> 多行结尾添加逗号可以使 git diffs 更清洁。另外，像 Babel 这样的转换器会删除转换代码中的额外的逗号，这意味着你不必担心旧版浏览器~~（我们也不需要支持旧版 IE）~~中的结尾逗号问题。
+
+🚨✅始终将逗号置于行末。
+
+eslint: [`comma-style`](http://cn.eslint.org/docs/rules/comma-style)
+
+```diff
+// bad - 没有结尾逗号的 git diff
+const hero = {
+    firstName: 'Florence',
+-    lastName: 'Nightingale'
++    lastName: 'Nightingale',
++    inventorOf: ['coxcomb chart', 'modern nursing']
+};
+
+// good - 有结尾逗号的 git diff
+const hero = {
+    firstName: 'Florence',
+    astName: 'Nightingale',
++    inventorOf: ['coxcomb chart', 'modern nursing'],
+};
+```
+
+### 括号
+
+🚨`return` 语句中的赋值必需有括号包裹。
+
+eslint: [`no-return-assign`](http://cn.eslint.org/docs/rules/no-return-assign)
+
+🚨✅`else` 关键字要与花括号保持在同一行。
+
+eslint: [`brace-style`](http://cn.eslint.org/docs/rules/brace-style)
+
+🚨✅ 多行 `if` 语句的的括号不能省。
+
+eslint: [`curly`](http://cn.eslint.org/docs/rules/curly)
+
+🚨 **条件语句中赋值语句**使用括号包起来。这样使得代码更加清晰可读，而不会认为是将条件判断语句的全等号（`===`）错写成了等号（`=`）。
+
+eslint: [`no-cond-assign`](http://cn.eslint.org/docs/rules/no-cond-assign)
+
+```js
+// bad
+function sum(a, b) {
+    return result = a + b;
+}
+
+// good
+function sum(a, b) {
+    return (result = a + b);
+}
+
+// gppd
+if (condition) {
+    // ...
+} else {
+    // ...
+}
+
+// bad
+if (condition)
+{
+    // ...
+}
+else
+{
+    // ...
+}
+
+// good
+if (options.quiet !== true) console.log('done');
+
+// good
+if (options.quiet !== true) {
+    console.log('done');
+}
+
+// bad
+if (options.quiet !== true)
+console.log('done');
+
+// good
+while ((m = text.match(expr))) {
+    // ...
+}
+
+// bad
+while (m = text.match(expr)) {
+    // ...
+}
+```
+
+### 空行
+
+🚨✅不允许有连续多行空行。
+
+eslint: [`no-multiple-empty-lines`](http://cn.eslint.org/docs/rules/no-multiple-empty-lines)
+
+🚨✅文件末尾留一空行。
+
+eslint: [`eol-last`](http://cn.eslint.org/docs/rules/eol-last)
+
+```js
+// bad
+const value = 'hello world';
+
+
+console.log(value);
+
+// good
+const value = 'hello world';
+console.log(value);
+
+```
+
+### 换行
+
+🚨✅对象属性换行时注意统一代码风格。
+
+eslint: [`object-property-newline`](http://cn.eslint.org/docs/rules/object-property-newline)
+
+```js
+// bad
+const user = {
+    name: 'Jane Doe', age: 30,
+    username: 'jdoe86',
+};
+
+// good
+const user = { name: 'Jane Doe', age: 30, username: 'jdoe86' };
+
+// good
+const user = {
+    name: 'Jane Doe',
+    age: 30,
+    username: 'jdoe86',
+};
+```
+
+### 变量与声明
 
 🚨不要定义未使用的变量。
 
-eslint: [`no-unused-vars`](http://eslint.org/docs/rules/no-unused-vars)
+eslint: [`no-unused-vars`](http://cn.eslint.org/docs/rules/no-unused-vars)
+
+🚨使用浏览器全局变量时加上 `window.` 前缀。<br>
+`document`、`console` 和 `navigator` 除外。
+
+eslint: [`no-undef`](http://cn.eslint.org/docs/rules/no-undef)
+
+🚨✅声明变量使用 `let` 或 `const` 而不是 `var`
+
+eslint: [`no-var`](http://cn.eslint.org/docs/rules/no-var)
+
+🚨每个变量都用一个 `const` 或 `let`。
+
+eslint: [`one-var`](http://cn.eslint.org/docs/rules/one-var)
+
+🚨不要修改使用 `const` 声明的变量。
+
+eslint: [`no-const-assign`](http://cn.eslint.org/docs/rules/no-const-assign)
+
+🚨不要对变量使用 `delete` 操作。
+
+eslint: [`no-delete-var`](http://cn.eslint.org/docs/rules/no-delete-var)
+
+🚨不要重复声明变量。
+
+eslint: [`no-redeclare`](http://cn.eslint.org/docs/rules/no-redeclare)
+
+🚨避免将变量赋值给自己。
+
+eslint: [`no-self-assign`](http://cn.eslint.org/docs/rules/no-self-assign)
+
+🚨避免将变量与自己进行比较操作。
+
+esint: [`no-self-compare`](http://cn.eslint.org/docs/rules/no-self-compare)
+
+🚨不要使用 `undefined` 来初始化变量。
+
+eslint: [`no-undef-init`](http://cn.eslint.org/docs/rules/no-undef-init)
+
+🚨循环语句中注意更新循环变量。
+
+eslint: [`no-unmodified-loop-condition`](http://cn.eslint.org/docs/rules/no-unmodified-loop-condition)
+
+🚨不要随意更改关键字的值。
+
+eslint: [`no-shadow-restricted-names`](http://cn.eslint.org/docs/rules/no-shadow-restricted-names)
 
 ```js
 function myFunction () {
-    var result = something()   // ✗ avoid
+    // bad unused result
+    const result = something();
 }
+
+// good
+const link = window.location.href;
+
+// bad
+var silent = true, verbose = true;
+let silent = true,
+    verbose = true;
+
+// good
+let silent = true;
+let verbose = true;
+
+
+// bad
+let name = 'John';
+let name = 'Jane';
+
+// good
+let firstName = 'John';
+firstName = 'Jane';
+
+// bad
+name = name;
+if (name === name) {}
+
+// bad
+let foo = undefined;
+
+// good
+let bar;
+bar = 'value';
+
+// bad
+for (let i = 0; i < items.length; j++) {...}
+
+// good
+for (let i = 0; i < items.length; i++) {...}
+
+// bad
+let undefined = 'value';
+```
+
+### 变量命名
+
+🚨对于变量和函数名统一使用驼峰命名法。
+
+eslint: [`camelcase`](http://cn.eslint.org/docs/rules/camelcase)
+
+```js
+// bad
+function my_function () { }
+
+// good
+function myFunction () { }
+
+// bad
+const my_var = 'hello';
+
+// good
+const myVar = 'hello';
+```
+
+### 函数
+
+🚨✅函数声明时括号与函数名间加空格。
+
+eslint: [`space-before-function-paren`](http://cn.eslint.org/docs/rules/space-before-function-paren)
+
+🚨✅函数调用时标识符与括号间不留间隔。
+
+eslint: [`func-call-spacing`](http://cn.eslint.org/docs/rules/func-call-spacing)
+
+🚨构造函数要以大写字母开头。
+
+eslint: [`new-cap`](http://cn.eslint.org/docs/rules/new-cap)
+
+🚨无参的构造函数调用时要带上括号。
+
+eslint: [`new-parens`](http://cn.eslint.org/docs/rules/new-parens)
+
+🚨不要定义冗余的函数参数。
+
+eslint: [`no-dupe-args`](http://cn.eslint.org/docs/rules/no-dupe-args)
+
+🚨避免多余的函数上下文绑定。
+
+eslint: [`no-extra-bind`](http://cn.eslint.org/docs/rules/no-extra-bind)
+
+🚨不要使用多余的括号包裹函数。
+
+eslint: [`no-extra-parens`](http://cn.eslint.org/docs/rules/no-extra-parens)
+
+🚨避免对声明过的函数重新赋值。
+
+eslint: [`no-func-assign`](http://cn.eslint.org/docs/rules/no-func-assign)
+
+🚨嵌套的代码块中禁止再定义函数。
+
+eslint: [`no-inner-declarations`](http://cn.eslint.org/docs/rules/no-inner-declarations)
+
+🚨不要将全局对象的属性作为函数调用。
+
+eslint: [`no-obj-calls`](http://cn.eslint.org/docs/rules/no-obj-calls)
+
+🚨自调用匿名函数 (IIFEs) 使用括号包裹。
+
+eslint: [`wrap-iife`](http://cn.eslint.org/docs/rules/wrap-iife)
+
+```js
+// bad
+function name ( arg ) { ... }
+run(function () { ... });
+console.log ('hello');
+
+// good
+function name(arg) { ... }
+run(function() { ... });
+console.log('hello');
+
+// bad
+function animal() {}
+const dog = new animal;
+const dog = new animal();
+
+// good
+function Animal() {}
+const dog = new Animal();
+
+// bad
+function sum(a, b, a) {}
+
+// good
+function sum(a, b, c) {}
+
+// bad
+const name = function() {
+    getName();
+}.bind(user);
+
+// good
+const name = function() {
+    this.getName();
+}.bind(user);
+
+// bad
+const myFunc = (function() {});
+
+// bad
+function myFunc() {}
+myFunc = myOtherFunc;
+
+if (authenticated) {
+    // bad
+    function setAuthUser() {}
+}
+
+// bad
+const math = Math();
+
+// bad
+const getName = function() { }();
+
+// good
+const getName = (function() { }());
+const getName = (function() { })();
+```
+
+### 数组
+
+🚨使用数组字面量而不是构造器。
+
+eslint: [`no-array-constructor`](http://cn.eslint.org/docs/rules/no-array-constructor)
+
+🚨禁止使用稀疏数组（Sparse arrays）。
+
+eslint: [`no-sparse-arrays`](http://cn.eslint.org/docs/rules/no-sparse-arrays)
+
+```js
+// bad
+const nums = new Array(1, 2, 3);
+
+// good
+const nums = [1, 2, 3];
+
+// bad
+const fruits = ['apple',, 'orange'];
+```
+
+### 对象
+
+🚨禁止使用 `Object` 构造器。
+
+eslint: [`no-new-object`](http://cn.eslint.org/docs/rules/no-new-object)
+
+🚨对象中定义了存值器，一定要对应的定义取值器。
+
+eslint: [`accessor-pairs`](http://cn.eslint.org/docs/rules/accessor-pairs)
+
+🚨对象字面量中不要定义重复的属性。
+
+eslint: [`no-dupe-keys`](http://cn.eslint.org/docs/rules/no-dupe-keys)
+
+🚨不要扩展原生对象。
+
+eslint: [`no-extend-native`](http://cn.eslint.org/docs/rules/no-extend-native)
+
+🚨不要对全局只读对象重新赋值。
+
+eslint: [`no-global-assign`](http://cn.eslint.org/docs/rules/no-global-assign)
+
+🚨外部变量不要与对象属性重名。
+
+eslint: [`no-label-var`](http://cn.eslint.org/docs/rules/no-label-var)
+
+🚨`new` 创建对象实例后需要赋值给变量。
+
+eslint: [`no-new`](http://cn.eslint.org/docs/rules/no-new)
+
+🚨✅避免使用不必要的计算值作对象属性。
+
+eslint: [`no-useless-computed-key`](http://cn.eslint.org/docs/rules/no-useless-computed-key)
+
+```js
+// bad
+let config = new Object();
+
+// bad
+const person = {
+    set name (value) {
+        this._name = value;
+    }
+};
+
+// good
+const person = {
+    set name (value) {
+        this._name = value;
+    },
+    get name () {
+        return this._name;
+    }
+};
+
+// bad
+const user = {
+    name: 'Jane Doe',
+    name: 'John Doe',
+};
+
+// bad
+Object.prototype.age = 21;
+
+// bad
+window = {};
+
+let score = 100
+function game () {
+    // bad
+    score: while (true) {
+        score -= 10;
+        if (score > 0) continue score;
+        break;
+    }
+}
+
+// bad
+new Character();
+
+// good
+const character = new Character();
+
+// bad
+const user = { ['name']: 'John Doe' };
+
+// good
+const user = { name: 'John Doe' };
+```
+
+### 正则
+
+🚨✅正则中避免使用多个空格。
+
+eslint: [`no-regex-spaces`](http://cn.eslint.org/docs/rules/no-regex-spaces)
+
+🚨正则中不要使用控制符。
+
+eslint: [`no-control-regex`](http://cn.eslint.org/docs/rules/no-control-regex)
+
+🚨正则中不要使用空字符。
+
+eslint: [`no-empty-character-class`](http://cn.eslint.org/docs/rules/no-empty-character-class)
+
+🚨不要向 `RegExp` 构造器传入非法的正则表达式。
+
+eslint: [`no-invalid-regexp`](http://cn.eslint.org/docs/rules/no-invalid-regexp)
+
+```js
+// bad
+const regexp = /test   value/;
+
+// good
+const regexp = /test {3}value/;
+const regexp = /test value/;
+
+// bad
+const pattern = /\x1f/;
+
+// good
+const pattern = /\x20/;
+// bad
+const myRegex = /^abc[]/;
+
+// good
+const myRegex = /^abc[a-z]/;
+
+// bad
+RegExp('[a-z');
+
+// good
+RegExp('[a-z]');
+```
+
+### ES6
+
+🚨✅所有变量的赋值都尽量用`const`。
+
+该规则旨在标记那些使用 `let` 声明，但在初始化赋值后从未被修改过的变量。
+
+eslint: [`prefer-const`](http://cn.eslint.org/docs/rules/prefer-const.html)
+
+🚨import, export 和解构操作中，禁止赋值到同名变量。
+
+eslint: [`no-useless-rename`](http://cn.eslint.org/docs/rules/no-useless-rename)
+
+🚨子类的构造器中一定要调用 `super`
+
+eslint: [`constructor-super`](http://cn.eslint.org/docs/rules/constructor-super)
+
+🚨避免对类名重新赋值。
+
+eslint: [`no-class-assign`](http://cn.eslint.org/docs/rules/no-class-assign)
+
+🚨类中不要定义冗余的属性。
+
+eslint: [`no-dupe-class-members`](http://cn.eslint.org/docs/rules/no-dupe-class-members)
+
+🚨同一模块有多个导入时一次性写完。
+
+eslint: [`no-duplicate-imports`](http://cn.eslint.org/docs/rules/no-duplicate-imports)
+
+🚨不要解构空值。
+
+eslint: [`no-empty-pattern`](http://cn.eslint.org/docs/rules/no-empty-pattern)
+
+🚨禁止使用 `Symbol` 构造器。
+
+`Symbol` 不和 `new` 操作符一起使用，而是作为函数调用。
+
+eslint: [`no-new-symbol`](http://cn.eslint.org/docs/rules/no-new-symbol)
+
+🚨要求有 symbol 描述 (symbol-description)
+
+eslint: [`symbol-description`](https://cn.eslint.org/docs/rules/symbol-description)
+
+🚨正确使用 ES6 中的字符串模板。
+
+eslint: [`no-template-curly-in-string`](http://cn.eslint.org/docs/rules/no-template-curly-in-string)
+
+🚨使用 `this` 前请确保 `super()` 已调用。
+
+eslint: [`no-this-before-super`](http://cn.eslint.org/docs/rules/no-this-before-super)
+
+🚨禁止多余的构造器。
+
+eslint: [`no-useless-constructor`](http://cn.eslint.org/docs/rules/no-useless-constructor)
+
+🚨✅`yield *` 中的 `*` 前后都要有空格。
+
+eslint: [`yield-star-spacing`](http://cn.eslint.org/docs/rules/yield-star-spacing)
+
+🚨✅`generator *` 中的 `*` 前后都要有空格。
+
+eslint: [`generator-star-spacing`](http://cn.eslint.org/docs/rules/generator-star-spacing)
+
+🚨✅要求箭头函数的箭头前后都有空格
+
+eslint: [`arrow-spacing`](https://cn.eslint.org/docs/rules/arrow-spacing)
+
+```js
+// bad
+var name = 'John';
+
+// good
+const name = 'Jane';
+
+// bad
+import { config as config } from './config';
+
+// good
+import { config } from './config';
+
+// bad
+class Dog {
+    constructor () {
+        super();
+    }
+}
+
+// good
+class Dog extends Mammal {
+    constructor () {
+        super();
+    }
+}
+
+// bad
+Dog = 'Fido';
+
+// bad
+class Dog {
+    bark () {}
+    bark () {}
+}
+
+// bad
+import { myFunc1 } from 'module';
+import { myFunc2 } from 'module';
+
+// good
+import { myFunc1, myFunc2 } from 'module';
+
+// bad
+const { a: {} } = foo;
+
+// good
+const { a: { b } } = foo;
+
+// bad
+const foo = Symbol();
+const foo = new Symbol('foo');
+
+// good
+const foo = Symbol("some description");
+
+// bad
+const message = 'Hello ${name}';
+
+// good
+const message = `Hello ${name}`;
+class Dog extends Animal {
+    constructor () {
+        // bad
+        this.legs = 4;
+        super();
+    }
+}
+
+// bad
+class Car {
+    constructor () {
+    }
+}
+
+// bad
+yield* increment();
+
+// good
+yield * increment();
+
+// good
+function * generator() {
+    yield "44";
+    yield "55";
+}
+
+// bad
+(a)=>{};
+
+// good
+(a) => {};
+```
+
+### Node.js
+
+🚨使用 `__dirname` 和 `__filename` 时尽量避免使用字符串拼接。
+
+eslint: [`no-path-concat`](http://cn.eslint.org/docs/rules/no-path-concat)
+
+🚨禁止使用 `new require`。
+
+eslint: [`no-new-require`](http://cn.eslint.org/docs/rules/no-new-require)
+
+```js
+// bad
+const pathToFile = __dirname + '/app.js';
+
+// good
+const pathToFile = path.join(__dirname, 'app.js');
+
+// bad
+const myModule = new require('my-module');
 ```
 
 [返回目录 ⏫](#%e7%9b%ae%e5%bd%95)

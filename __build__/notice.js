@@ -3,8 +3,6 @@
  * @Email: zhuowenligg@gmail.com
  * @Date: 2019-10-10 18:15:36
  */
-/* eslint-disable max-len */
-
 const axios = require('axios');
 const exec = require('./libs/exec');
 const getUser = require('./libs/get-user');
