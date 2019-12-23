@@ -13,14 +13,14 @@ module.exports = (cmd, callback, ops) => {
 
     return new Promise((resolve, reject) => {
         exec(cmd, ops, (err, stdout, stderr) => {
-            if(err) {
+            if (err) {
                 const errMsgs = [
                     '!!-- Exec Error --!!',
-                    'Cmd: ['+ cmd +']',
+                    'Cmd: [' + cmd + ']',
                     'Error: ' + err,
                     'Stderr: ' + stderr,
                     'Stdout: ' + stdout,
-                    '!!-- Exec Error End --!!'
+                    '!!-- Exec Error End --!!',
                 ];
 
                 return reject(errMsgs.join('\n'));

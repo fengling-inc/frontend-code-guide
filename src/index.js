@@ -7,7 +7,7 @@
 import Vue from 'vue';
 import hljs from 'highlight.js';
 import VueRouter from 'vue-router';
-import Promise, { resolve } from 'bluebird';
+import Promise from 'bluebird';
 import App from './views/app.vue';
 import 'highlight.js/styles/github.css';
 import './stylesheet/app.scss';
@@ -26,7 +26,7 @@ const router = new VueRouter({
             path: '/pages/devops/frontend-code-guide/',
             name: 'home',
             component,
-        }
+        },
     ],
     mode: 'history',
 });
@@ -42,8 +42,8 @@ router.afterEach((route, from) => {
 
 export default new Vue({
     router,
-    mounted () {
+    mounted() {
         document.dispatchEvent(new Event('render-event'));
     },
-    render: (r) => r(App)
+    render: (r) => r(App),
 }).$mount('#app');

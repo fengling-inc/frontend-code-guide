@@ -39,7 +39,7 @@ function genInlineComponentText(template, script) {
     const finalOptions = {
         source: `<div>${template}</div>`,
         filename: 'inline-component', // TODO：这里有待调整
-        compiler
+        compiler,
     };
     const compiled = compileTemplate(finalOptions);
     // tips
@@ -53,7 +53,7 @@ function genInlineComponentText(template, script) {
         console.error(
             `\n  Error compiling template:\n${pad(compiled.source)}\n` +
             compiled.errors.map(e => `  - ${e}`).join('\n') +
-            '\n'
+            '\n',
         );
     }
     let demoComponentContent = `
@@ -78,13 +78,13 @@ function genInlineComponentText(template, script) {
     return demoComponentContent;
 }
 
-function encodeHtml(str){
-    let s = "";
-    if (str.length == 0) return "";
+function encodeHtml(str) {
+    let s = '';
+    if (str.length == 0) return '';
 
-    s = str.replace(/&/g,"&gt;");
-    s = s.replace(/</g,"&lt;");
-    s = s.replace(/>/g,"&gt;");
+    s = str.replace(/&/g, '&gt;');
+    s = s.replace(/</g, '&lt;');
+    s = s.replace(/>/g, '&gt;');
 
     return s;
 }
@@ -98,11 +98,11 @@ module.exports = {
     convert(str) {
         return str.replace(
             /(&#x)(\w{4});/gi,
-            ($0) => String.fromCharCode(parseInt(encodeURIComponent($0).replace(/(%26%23x)(\w{4})(%3B)/g, '$2'), 16))
+            ($0) => String.fromCharCode(parseInt(encodeURIComponent($0).replace(/(%26%23x)(\w{4})(%3B)/g, '$2'), 16)),
         );
     },
     wrap(render) {
-        return function() {
+        return function () {
             return render.apply(this, arguments)
                 .replace('<code v-pre class="', '<code class="hljs ')
                 .replace('<code>', '<code class="hljs">');
@@ -129,4 +129,4 @@ module.exports = {
         if (!tag) return str;
         return $(tag).html();
     },
-}
+};

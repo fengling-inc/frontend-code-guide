@@ -62,6 +62,3 @@ typings/
 
 __dist__
 yarn.lock
-RULES-zhcn.md
-packages
-.eslintrc

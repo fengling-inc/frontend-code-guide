@@ -14,7 +14,7 @@ const users = {
     haimian: '海绵',
     fengling: '风铃',
     jieping: '截屏',
-}
+};
 
 module.exports = (name) => {
     if (users[name]) {

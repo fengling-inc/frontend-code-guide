@@ -72,20 +72,20 @@ module.exports = function (source) {
             return item;
         }
 
-        let section = ''
+        let section = '';
         let pre = '';
 
         item.map(el => {
             if (el.name === 'pre') {
                 const code = $(el).find('code');
-                pre += `<pre><code class="${code.attr('class')}">${encodeHtml(code.text())}</code></pre>`
+                pre += `<pre><code class="${code.attr('class')}">${encodeHtml(code.text())}</code></pre>`;
                 return el;
             }
 
             section += $.html(el);
         });
 
-        data += `<section><div class="col">${section}</div>${pre ? `<div class="col">${pre}</div>` : ''}</section>`
+        data += `<section><div class="col">${section}</div>${pre ? `<div class="col">${pre}</div>` : ''}</section>`;
     });
 
     return `<template><article class="content">${data}</article></template>`;

@@ -12,7 +12,7 @@ module.exports = {
                 corejs: 2,
                 useBuiltIns: 'usage',
                 targets: {
-                    chrome: '40'
+                    chrome: '40',
                 },
             },
         ],
@@ -22,5 +22,5 @@ module.exports = {
         '@babel/plugin-syntax-dynamic-import',
         'transform-vue-jsx',
     ],
-    sourceType: 'unambiguous'
+    sourceType: 'unambiguous',
 };

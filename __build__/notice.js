@@ -15,7 +15,7 @@ const githubAccessToken = '7f5a0f355edfe413aad48c901418ad10325f1a32';
 async function notice() {
     if (!/master/.test(branch)) return;
 
-    let text = `## HLGUI 发布提醒\n`;
+    let text = '## HLGUI 发布提醒\n';
     const log = await exec('git log -1');
 
     if (/ Merge pull request #(\d+)/.test(log)) {
@@ -50,10 +50,10 @@ ${content ? `\n\n&nbsp;\n${content}` : ''}`;
             method: 'post',
             url: `https://oapi.dingtalk.com/robot/send?access_token=${dingTalkAccessToken}`,
             data: {
-                "msgtype": "markdown",
-                "markdown": {
-                    "title":"HLGUI 发布提醒",
-                    "text": text
+                msgtype: 'markdown',
+                markdown: {
+                    title: 'HLGUI 发布提醒',
+                    text: text,
                 },
             },
         });

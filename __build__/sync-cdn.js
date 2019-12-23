@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
 const pkg = require('../package.json');
-const { branch } = require('./libs/utils')
+const { branch } = require('./libs/utils');
 
 // 编译输出目录
 const DIST_PATH = path.join(__dirname, '..', '__dist__');
@@ -25,11 +25,10 @@ function uploadPackage() {
     return new Promise((resolve, reject) => {
         if (fs.existsSync(CODE_PATH) && isMaster) {
             childProcess.exec(`rsync -azv . cdn:/service/libcdn/package/hlg-ui@${pkg.version}/`, {
-                cwd: CODE_PATH
+                cwd: CODE_PATH,
             }, (errors, e) => {
                 if (errors) {
-                    reject();
-                    throw errors;
+                    return reject(new Error());
                 }
                 console.log(e);
                 console.log('同步完成：', CODE_PATH);
@@ -40,7 +39,7 @@ function uploadPackage() {
             resolve();
             console.log('无需同步：', CODE_PATH);
         }
-    })
+    });
 }
 
 function uploadDist() {
@@ -49,11 +48,10 @@ function uploadDist() {
     return new Promise((resolve, reject) => {
         if (fs.existsSync(DIST_PATH) && isMaster) {
             childProcess.exec('rsync -azv . cdn:/service/libcdn/hlgui/dist/', {
-                cwd: DIST_PATH
+                cwd: DIST_PATH,
             }, (errors, e) => {
                 if (errors) {
-                    reject();
-                    throw errors;
+                    return reject(new Error());
                 }
                 console.log(e);
                 console.log('同步完成：', DIST_PATH);
@@ -63,12 +61,11 @@ function uploadDist() {
             resolve();
             console.log('无需同步：', DIST_PATH);
         }
-    })
+    });
 }
 
 (async () => {
     await uploadPackage();
     await uploadDist();
     console.log(fs.readFileSync(LOGO_PATH, 'utf8'));
-})()
-
+})();

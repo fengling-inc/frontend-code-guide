@@ -35,7 +35,7 @@ module.exports = {
             rules: [
                 {
                     test: /\.pug$/,
-                    loader: 'pug-plain-loader'
+                    loader: 'pug-plain-loader',
                 },
                 {
                     test: /\.md$/,
@@ -44,16 +44,16 @@ module.exports = {
                             loader: 'vue-loader',
                             options: {
                                 compilerOptions: {
-                                    preserveWhitespace: false
-                                }
-                            }
+                                    preserveWhitespace: false,
+                                },
+                            },
                         },
                         {
-                            loader: path.resolve(__dirname, './__build__/md-loader/index.js')
-                        }
-                    ]
+                            loader: path.resolve(__dirname, './__build__/md-loader/index.js'),
+                        },
+                    ],
                 },
-            ]
+            ],
         },
         resolve: {
             alias: {
@@ -71,8 +71,8 @@ module.exports = {
             }),
             new webpack.DefinePlugin({
                 __DEBUG__: DEBUG,
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
             }),
         ],
-    }
+    },
 };
