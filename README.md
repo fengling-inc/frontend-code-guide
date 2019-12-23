@@ -1916,7 +1916,7 @@ try {
     // ...
 } catch (e) {
     // bad
-    e = 'new value;
+    e = 'new value';
 }
 
 switch (filter) {
