@@ -2025,7 +2025,7 @@ eslint: [`vue/html-indent`](https://eslint.vuejs.org/rules/html-indent.html)、[
 <!-- good -->
 <template>
     <div class="foo">
-        Hello {{text}}.
+        Hello world.
     </div>
 </template>
 
@@ -2043,7 +2043,7 @@ export default {
 <!-- bad -->
 <template>
   <div class="foo">
-    Hello {{text}}.
+    Hello world.
   </div>
 </template>
 
@@ -2153,8 +2153,8 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
     </div>
 
     <tr attr>
-        <td>{{ data1 }}</td>
-        <td>{{ data2 }}</td>
+        <td>data</td>
+        <td>data</td>
     </tr>
 
     <div attr>
@@ -2164,7 +2164,7 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
     <!-- bad -->
     <div attr>content</div>
 
-    <tr attr><td>{{ data1 }}</td><td>{{ data2 }}</td></tr>
+    <tr attr><td>data</td><td>data</td></tr>
 
     <div attr><!-- comment --></div>
 </template>
