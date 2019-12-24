@@ -1,7 +1,10 @@
 {
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "extends": "gaoding"
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": [
+        "gaoding",
+        "gaoding-vue"
+    ]
 }
