@@ -68,6 +68,12 @@
     - [ES6](#es6)
     - [最佳实践](#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5)
     - [Node.js](#nodejs)
+- [Vue](#vue)
+    - [风格指南](#%e9%a3%8e%e6%a0%bc%e6%8c%87%e5%8d%97)
+    - [缩进](#%e7%bc%a9%e8%bf%9b-2)
+    - [命名方式](#%e5%91%bd%e5%90%8d%e6%96%b9%e5%bc%8f)
+    - [多个特性的元素](#%e5%a4%9a%e4%b8%aa%e7%89%b9%e6%80%a7%e7%9a%84%e5%85%83%e7%b4%a0)
+    - [换行](#%e6%8d%a2%e8%a1%8c-2)
 - [参考](#%e5%8f%82%e8%80%83)
 
 ## 项目规范
@@ -758,7 +764,7 @@ eslint: [`template-curly-spacing`](http://cn.eslint.org/docs/rules/template-curl
 
 eslint: [`key-spacing`](http://cn.eslint.org/docs/rules/key-spacing)
 
-🚨✅展开运算符与它的表达式间不要留空白。
+🚨✅展开运算符与它的表达式间不要有空格。
 
 eslint: [`rest-spread-spacing`](http://cn.eslint.org/docs/rules/rest-spread-spacing)
 
@@ -798,12 +804,6 @@ typeof!admin
 
 // good
 typeof !admin
-
-//comment           // bad
-// comment          // good
-
-/*comment*/         // bad
-/* comment */       // good
 
 // bad
 const message = `Hello, ${ name }`;
@@ -962,19 +962,15 @@ function sum(a, b) {
 
 // gppd
 if (condition) {
-    // ...
 } else {
-    // ...
 }
 
 // bad
 if (condition)
 {
-    // ...
 }
 else
 {
-    // ...
 }
 
 // good
@@ -990,14 +986,10 @@ if (options.quiet !== true)
 console.log('done');
 
 // good
-while ((m = text.match(expr))) {
-    // ...
-}
+while ((m = text.match(expr))) { }
 
 // bad
-while (m = text.match(expr)) {
-    // ...
-}
+while (m = text.match(expr)) { }
 ```
 
 ### 空行
@@ -2016,6 +2008,167 @@ const myModule = new require('my-module');
 ```
 
 [返回目录 ⏫](#%e7%9b%ae%e5%bd%95)
+
+## Vue
+
+### 风格指南
+
+请参考官方的 [Vue 风格指南](https://cn.vuejs.org/v2/style-guide/)，这里会根据 [eslint-plugin-vue](https://eslint.vuejs.org/) 做部分改造。
+
+### 缩进
+
+🚨✅使用**四个空格**进行缩进。
+
+eslint: [`vue/html-indent`](https://eslint.vuejs.org/rules/html-indent.html)、[`vue/script-indent`](https://eslint.vuejs.org/rules/script-indent.html)
+
+```html
+<!-- good -->
+<template>
+    <div class="foo">
+        Hello {{text}}.
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'ExampleComponent',
+    data() {
+        return {
+            text: 'world',
+        };
+    },
+}
+</script>
+
+<!-- bad -->
+<template>
+  <div class="foo">
+    Hello {{text}}.
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ExampleComponent',
+  data() {
+    return {
+      text: 'world',
+    };
+  },
+}
+</script>
+```
+
+### 命名方式
+
+🚨✅HTML 模板中自定义组件名始终大写。
+
+eslint: [`vue/component-name-in-template-casing`](https://eslint.vuejs.org/rules/component-name-in-template-casing.html)
+
+🚨自定义组件文件命名全部采用小写方式，以中划线分隔。
+
+```html
+<!-- bad -->
+<!-- FooBar.vue -->
+<template>
+    <div class="foo">
+        <hlg-select v-model="type">
+            <hlgOption v-for="item in types" :key="item.value" :label="item.text" :value="item.value" />
+        </hlg-select>
+    </div>
+</template>
+
+<!-- good -->
+<!-- foo-bar.vue -->
+<template>
+    <div class="foo">
+        <HlgSelect v-model="type">
+            <HlgOption v-for="item in types" :key="item.value" :label="item.text" :value="item.value" />
+        </HlgSelect>
+    </div>
+</template>
+
+<!-- good -->
+<script>
+import { HlgSelect, HlgOption } from 'hlg-ui';
+import FooBar from './foo-bar.vue';
+
+export default {
+    name: 'ExampleComponent',
+    components: { HlgSelect, HlgOption, FooBar },
+    ...
+}
+</script>
+```
+
+### 多个特性的元素
+
+🚨✅多个特性的元素应该分多行撰写，每个特性一行。（单行特性最多不能超过四个）
+
+eslint: [`vue/max-attributes-per-line`](https://eslint.vuejs.org/rules/max-attributes-per-line.html)
+
+```html
+<!-- bad -->
+<template>
+    <HlgSelect v-model="type" multiple size="small" placeholder="请选择" @change="onChange">
+        <HlgOption v-for="item in types" :key="item.value" :label="item.text" :value="item.value" :disabled="item.disabled" />
+    </HlgSelect>
+</template>
+
+<!-- good -->
+<template>
+    <HlgSelect
+        v-model="type"
+        multiple
+        size="small"
+        placeholder="请选择"
+        @change="onChange"
+    >
+        <HlgOption
+            v-for="item in types"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value"
+            :disabled="item.disabled"
+        />
+    </HlgSelect>
+</template>
+```
+
+### 换行
+
+🚨✅在单行元素的内容的之前和之后需要换行
+
+以下标签除外：
+
+`&lt;pre&gt;, &lt;textarea&gt;, &lt;a&gt;, &lt;abbr&gt;, &lt;audio&gt;, &lt;b&gt;, &lt;bdi&gt;, &lt;bdo&gt;, &lt;canvas&gt;, &lt;cite&gt;, &lt;code&gt;, &lt;data&gt;, &lt;del&gt;, &lt;dfn&gt;, &lt;em&gt;, &lt;i&gt;, &lt;iframe&gt;, &lt;ins&gt;, &lt;kbd&gt;, &lt;label&gt;, &lt;map&gt;, &lt;mark&gt;, &lt;noscript&gt;, &lt;object&gt;, &lt;output&gt;, &lt;picture&gt;, &lt;q&gt;, &lt;ruby&gt;, &lt;s&gt;, &lt;samp&gt;, &lt;small&gt;, &lt;span&gt;, &lt;strong&gt;, &lt;sub&gt;, &lt;sup&gt;, &lt;svg&gt;, &lt;time&gt;, &lt;u&gt;, &lt;var&gt;, &lt;video&gt;, &lt;li&gt;, &lt;route&gt;-link', &lt;template&gt;, &lt;button&gt;, &lt;p&gt;, &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;h4&gt;, &lt;h5&gt;, &lt;h6&gt;`
+
+eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org/rules/singleline-html-element-content-newline.html)
+
+```html
+<template>
+    <!-- good -->
+    <div attr>
+        content
+    </div>
+
+    <tr attr>
+        <td>{{ data1 }}</td>
+        <td>{{ data2 }}</td>
+    </tr>
+
+    <div attr>
+        <!-- comment -->
+    </div>
+
+    <!-- bad -->
+    <div attr>content</div>
+
+    <tr attr><td>{{ data1 }}</td><td>{{ data2 }}</td></tr>
+
+    <div attr><!-- comment --></div>
+</template>
+```
 
 ## 参考
 
