@@ -2187,17 +2187,19 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
 2. 修改编辑器配置
 
     ```json
-        {
-            "editor.tabSize": 4,                  // tab 为 4 个空格
-            "emmet.triggerExpansionOnTab": true,  // 按下 tab 时展开 Emmet 缩写
-            "vetur.completion.autoImport": false,
-            "files.trimTrailingWhitespace": true, // 保存文件时删除文件末尾的空格
-            "csscomb.formatOnSave": true,         // 保存文件时自动修复 CSScomb 问题
-            "editor.codeActionsOnSave": {
-                "source.fixAll.eslint": true      // 保存文件时自动修复 Eslint 问题
-            }
+    {
+        "editor.tabSize": 4,                  // tab 为 4 个空格
+        "emmet.triggerExpansionOnTab": true,  // 按下 tab 时展开 Emmet 缩写
+        "vetur.completion.autoImport": false,
+        "files.trimTrailingWhitespace": true, // 保存文件时删除文件末尾的空格
+        "csscomb.formatOnSave": true,         // 保存文件时自动修复 CSScomb 问题
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true      // 保存文件时自动修复 Eslint 问题
         }
+    }
     ```
+
+[返回目录 ⏫](#%e7%9b%ae%e5%bd%95)
 
 ### 代码配置
 
@@ -2231,5 +2233,3 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
 - [Code Guide by @AlloyTeam](http://alloyteam.github.io/CodeGuide)
 - [Popular Coding Convention on Github](http://sideeffect.kr/popularconvention#javascript)
 - [JavaScript Standard Style](https://standardjs.com/)
-
-[返回目录 ⏫](#%e7%9b%ae%e5%bd%95)
