@@ -1044,7 +1044,7 @@ const user = {
 
 ### 变量与声明
 
-🚨不要定义未使用的变量。
+📌不要定义未使用的变量。
 
 eslint: [`no-unused-vars`](http://cn.eslint.org/docs/rules/no-unused-vars)
 

@@ -118,7 +118,7 @@ module.exports = {
         tags = !Array.isArray(tags) ? [tags] : tags;
         let len = tags.length;
 
-        while (len--) { // eslint-disable-line no-plusplus
+        while (len--) {
             $(tags[len]).remove();
         }
 

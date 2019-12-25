@@ -20,7 +20,7 @@
     "assets-webpack-plugin": "^3.9.10",
     "cheerio": "^1.0.0-rc.3",
     "eslint": "^6.7.2",
-    "eslint-config-gaoding": "^1.0.0",
+    "eslint-config-gaoding": "^1.0.2",
     "eslint-config-gaoding-vue": "^1.0.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-vue": "^6.0.1",
