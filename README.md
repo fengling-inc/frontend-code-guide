@@ -2206,7 +2206,7 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
 1. 安装依赖
 
     ```bash
-    npm install --save-dev eslint eslint-config-gaoding eslint-plugin-vue eslint-config-gaoding-vue
+    npm install --save-dev eslint eslint-plugin-import eslint-config-gaoding eslint-plugin-vue eslint-config-gaoding-vue
     ```
 
 2. 在根目录创建一个 `.eslintrc` 文件，并输入以下内容：
