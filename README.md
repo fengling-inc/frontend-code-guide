@@ -190,19 +190,16 @@ IE 支持通过特定的 `<meta>` 标签来确定绘制当前页面所应该采�
 
 ### 协议
 
-🚨省略图像、媒体文件、样式表和脚本等 URL 的协议头声明「`http:`、`https:`」。
+📌尽可能使用「`https:`」声明协议头。
 
-如果不是这两个声明的 URL 则不省略。省略协议声明、使 URL 成相对地址，可以防止内容混淆问题和文件加载异常。
+除非图像等资源不能通过 HTTPS 获得，否则请始终对图像和其他媒体文件、样式表和脚本使用 HTTPS。
 
 ```html
-<!-- very bad -->
+<!-- bad -->
 <script src="http://alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
 
-<!-- bad -->
-<script src="https://alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
-
 <!-- good -->
-<script src="//alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
+<script src="https://alicdn.dancf.com/package/hlg-ui@0.26.4/index.js"></script>
 ```
 
 ### 属性顺序
@@ -545,8 +542,8 @@ li[data-type="single"] {
     border: 1px solid #e5e5e5;
     border-radius: 3px;
     width: 100px;
-
     height: 100px;
+
     font: normal 13px "Helvetica Neue", sans-serif;
     line-height: 1.5;
     text-align: center;
@@ -739,7 +736,7 @@ eslint: [`no-trailing-spaces`](http://cn.eslint.org/docs/rules/no-trailing-space
 
 eslint: [`no-whitespace-before-property`](http://cn.eslint.org/docs/rules/no-whitespace-before-property)
 
-🚨✅遇到分号时空格后留前不留。
+🚨✅分号后面必须有一个空格，前面不能有空格。
 
 eslint: [`semi-spacing`](http://cn.eslint.org/docs/rules/semi-spacing)
 
@@ -963,7 +960,7 @@ function sum(a, b) {
     return (result = a + b);
 }
 
-// gppd
+// good
 if (condition) {
 } else {
 }
