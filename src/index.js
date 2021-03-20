@@ -23,7 +23,7 @@ const router = new VueRouter({
             component,
         },
         {
-            path: '/pages/devops/frontend-code-guide/',
+            path: '/frontend-code-guide/',
             name: 'home',
             component,
         },
