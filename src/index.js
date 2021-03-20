@@ -18,12 +18,7 @@ const component = (r) => r(require('../README.md'));
 const router = new VueRouter({
     routes: [
         {
-            path: '/',
-            name: 'home',
-            component,
-        },
-        {
-            path: '/frontend-code-guide/',
+            path: '*',
             name: 'home',
             component,
         },
