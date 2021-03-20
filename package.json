@@ -2,7 +2,7 @@
   "name": "frontend-code-guide",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "git@git.gaoding.com:devops/frontend-code-guide.git",
+  "repository": "git@github.com:fengling-inc/frontend-code-guide.git",
   "author": "zhuowenli <zhuowenligg@gmail.com>",
   "license": "MIT",
   "scripts": {
