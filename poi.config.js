@@ -6,7 +6,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const { distRoot } = require('./__build__/libs/utils');
+const { distRoot } = require('./__build__/utils');
 
 const DEBUG = process.env.NODE_ENV !== 'production';
 

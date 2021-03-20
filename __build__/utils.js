@@ -6,7 +6,7 @@
 
 const path = require('path');
 const { execSync } = require('child_process');
-const pkg = require('../../package.json');
+const pkg = require('../package.json');
 
 const DEBUG = !process.env.GIT_BRANCH;
 const version = process.env.GIT_COMMIT || pkg.version;

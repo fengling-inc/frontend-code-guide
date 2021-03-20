@@ -525,7 +525,7 @@ li[data-type="single"] {
 
 📌✅相关的属性声明按顺序做分组处理，组之间需要有一个空行。
 
-[这是推荐的属性的顺序](https://git.gaoding.com/devops/frontend-code-guide/blob/master/.csscomb.json#L32)
+[这是推荐的属性的顺序](https://github.com/fengling-inc/frontend-code-guide/blob/master/.csscomb.json#L32)
 
 ```css
 .declaration-order {
@@ -694,12 +694,12 @@ eslint: [`max-len`](http://cn.eslint.org/docs/rules/max-len.html)
 
 ```javascript
 // bad
-$.ajax({ method: 'POST', url: 'https://gaoding.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this name.'));
+$.ajax({ method: 'POST', url: 'https://baidu.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this name.'));
 
 // good
 $.ajax({
     method: 'POST',
-    url: 'https://gaoding.com/',
+    url: 'https://baidu.com/',
     data: { name: 'John' },
 })
     .done(() => console.log('Congratulations!'))
@@ -2221,7 +2221,7 @@ eslint: [`vue/singleline-html-element-content-newline`](https://eslint.vuejs.org
     }
     ```
 
-3. 复制 [`.csscomb.json`](https://git.gaoding.com/devops/frontend-code-guide/blob/master/.csscomb.json) 配置至根目录。
+3. 复制 [`.csscomb.json`](https://github.com/fengling-inc/frontend-code-guide/blob/master/.csscomb.json) 配置至根目录。
 
 ## 相关文档
 
